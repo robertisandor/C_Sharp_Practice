@@ -1,0 +1,6 @@
+\\GMRSHARED\Xfers\Robert Sandor\RSandor-ShoppingList\RSandor-ShoppingList\bin\Debug\RSandor-ShoppingList.exe.config
+\\GMRSHARED\Xfers\Robert Sandor\RSandor-ShoppingList\RSandor-ShoppingList\bin\Debug\RSandor-ShoppingList.exe
+\\GMRSHARED\Xfers\Robert Sandor\RSandor-ShoppingList\RSandor-ShoppingList\bin\Debug\RSandor-ShoppingList.pdb
+\\GMRSHARED\Xfers\Robert Sandor\RSandor-ShoppingList\RSandor-ShoppingList\obj\Debug\RSandor-ShoppingList.csprojResolveAssemblyReference.cache
+\\GMRSHARED\Xfers\Robert Sandor\RSandor-ShoppingList\RSandor-ShoppingList\obj\Debug\RSandor-ShoppingList.exe
+\\GMRSHARED\Xfers\Robert Sandor\RSandor-ShoppingList\RSandor-ShoppingList\obj\Debug\RSandor-ShoppingList.pdb

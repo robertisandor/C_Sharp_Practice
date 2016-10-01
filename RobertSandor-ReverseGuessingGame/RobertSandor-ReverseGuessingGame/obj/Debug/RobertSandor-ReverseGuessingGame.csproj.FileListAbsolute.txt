@@ -1,0 +1,15 @@
+c:\users\visitordl10\documents\visual studio 2013\Projects\RobertSandor-ReverseGuessingGame\RobertSandor-ReverseGuessingGame\bin\Debug\RobertSandor-ReverseGuessingGame.exe.config
+c:\users\visitordl10\documents\visual studio 2013\Projects\RobertSandor-ReverseGuessingGame\RobertSandor-ReverseGuessingGame\bin\Debug\RobertSandor-ReverseGuessingGame.exe
+c:\users\visitordl10\documents\visual studio 2013\Projects\RobertSandor-ReverseGuessingGame\RobertSandor-ReverseGuessingGame\bin\Debug\RobertSandor-ReverseGuessingGame.pdb
+c:\users\visitordl10\documents\visual studio 2013\Projects\RobertSandor-ReverseGuessingGame\RobertSandor-ReverseGuessingGame\obj\Debug\RobertSandor-ReverseGuessingGame.csprojResolveAssemblyReference.cache
+c:\users\visitordl10\documents\visual studio 2013\Projects\RobertSandor-ReverseGuessingGame\RobertSandor-ReverseGuessingGame\obj\Debug\RobertSandor-ReverseGuessingGame.exe
+c:\users\visitordl10\documents\visual studio 2013\Projects\RobertSandor-ReverseGuessingGame\RobertSandor-ReverseGuessingGame\obj\Debug\RobertSandor-ReverseGuessingGame.pdb
+C:\Users\VisitorDL4\Desktop\RobertSandor-ReverseGuessingGame\RobertSandor-ReverseGuessingGame\bin\Debug\RobertSandor-ReverseGuessingGame.exe.config
+C:\Users\VisitorDL4\Desktop\RobertSandor-ReverseGuessingGame\RobertSandor-ReverseGuessingGame\obj\Debug\RobertSandor-ReverseGuessingGame.exe
+C:\Users\VisitorDL4\Desktop\RobertSandor-ReverseGuessingGame\RobertSandor-ReverseGuessingGame\obj\Debug\RobertSandor-ReverseGuessingGame.pdb
+C:\Users\VisitorDL4\Desktop\RobertSandor-ReverseGuessingGame\RobertSandor-ReverseGuessingGame\bin\Debug\RobertSandor-ReverseGuessingGame.exe
+C:\Users\VisitorDL4\Desktop\RobertSandor-ReverseGuessingGame\RobertSandor-ReverseGuessingGame\bin\Debug\RobertSandor-ReverseGuessingGame.pdb
+C:\Users\VisitorDL4\Desktop\RobertSandor-ReverseGuessingGame\RobertSandor-ReverseGuessingGame\obj\Debug\RobertSandor-ReverseGuessingGame.csprojResolveAssemblyReference.cache
+\\GMRSHARED\Xfers\Robert Sandor\RobertSandor-ReverseGuessingGame\RobertSandor-ReverseGuessingGame\bin\Debug\RobertSandor-ReverseGuessingGame.exe.config
+\\GMRSHARED\Xfers\Robert Sandor\RobertSandor-ReverseGuessingGame\RobertSandor-ReverseGuessingGame\obj\Debug\RobertSandor-ReverseGuessingGame.exe
+\\GMRSHARED\Xfers\Robert Sandor\RobertSandor-ReverseGuessingGame\RobertSandor-ReverseGuessingGame\obj\Debug\RobertSandor-ReverseGuessingGame.pdb

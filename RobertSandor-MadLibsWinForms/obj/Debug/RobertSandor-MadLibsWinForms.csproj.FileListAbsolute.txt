@@ -1,0 +1,19 @@
+c:\users\visitordl2\documents\visual studio 2015\Projects\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\bin\Debug\RobertSandor-MadLibsWinForms.exe.config
+\\GMRSHARED\Xfers\Robert Sandor\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\bin\Debug\RobertSandor-MadLibsWinForms.exe.config
+\\GMRSHARED\Xfers\Robert Sandor\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\bin\Debug\RobertSandor-MadLibsWinForms.exe
+\\GMRSHARED\Xfers\Robert Sandor\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\bin\Debug\RobertSandor-MadLibsWinForms.pdb
+\\GMRSHARED\Xfers\Robert Sandor\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\obj\Debug\RobertSandor-MadLibsWinForms.csprojResolveAssemblyReference.cache
+\\GMRSHARED\Xfers\Robert Sandor\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\obj\Debug\RobertSandor_MadLibsWinForms.Form1.resources
+\\GMRSHARED\Xfers\Robert Sandor\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\obj\Debug\RobertSandor_MadLibsWinForms.Properties.Resources.resources
+\\GMRSHARED\Xfers\Robert Sandor\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\obj\Debug\RobertSandor-MadLibsWinForms.csproj.GenerateResource.Cache
+\\GMRSHARED\Xfers\Robert Sandor\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\obj\Debug\RobertSandor-MadLibsWinForms.exe
+\\GMRSHARED\Xfers\Robert Sandor\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\obj\Debug\RobertSandor-MadLibsWinForms.pdb
+C:\Users\VisitorDL1\Desktop\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\bin\Debug\RobertSandor-MadLibsWinForms.exe.config
+C:\Users\VisitorDL1\Desktop\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\obj\Debug\RobertSandor-MadLibsWinForms.exe
+C:\Users\VisitorDL1\Desktop\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\obj\Debug\RobertSandor-MadLibsWinForms.pdb
+C:\Users\VisitorDL1\Desktop\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\bin\Debug\RobertSandor-MadLibsWinForms.exe
+C:\Users\VisitorDL1\Desktop\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\bin\Debug\RobertSandor-MadLibsWinForms.pdb
+C:\Users\VisitorDL1\Desktop\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\obj\Debug\RobertSandor-MadLibsWinForms.csprojResolveAssemblyReference.cache
+C:\Users\VisitorDL1\Desktop\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\obj\Debug\RobertSandor_MadLibsWinForms.Form1.resources
+C:\Users\VisitorDL1\Desktop\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\obj\Debug\RobertSandor_MadLibsWinForms.Properties.Resources.resources
+C:\Users\VisitorDL1\Desktop\RobertSandor-MadLibsWinForms\RobertSandor-MadLibsWinForms\obj\Debug\RobertSandor-MadLibsWinForms.csproj.GenerateResource.Cache

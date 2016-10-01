@@ -1,0 +1,9 @@
+\\GMRSHARED\Xfers\Robert Sandor\RSandor - GuessingGame\RSandor - GuessingGame\bin\Debug\RSandor - GuessingGame.exe.config
+\\GMRSHARED\Xfers\Robert Sandor\RSandor - GuessingGame\RSandor - GuessingGame\bin\Debug\RSandor - GuessingGame.exe
+\\GMRSHARED\Xfers\Robert Sandor\RSandor - GuessingGame\RSandor - GuessingGame\bin\Debug\RSandor - GuessingGame.pdb
+\\GMRSHARED\Xfers\Robert Sandor\RSandor - GuessingGame\RSandor - GuessingGame\obj\Debug\RSandor - GuessingGame.csprojResolveAssemblyReference.cache
+\\GMRSHARED\Xfers\Robert Sandor\RSandor - GuessingGame\RSandor - GuessingGame\obj\Debug\RSandor___GuessingGame.Form1.resources
+\\GMRSHARED\Xfers\Robert Sandor\RSandor - GuessingGame\RSandor - GuessingGame\obj\Debug\RSandor___GuessingGame.Properties.Resources.resources
+\\GMRSHARED\Xfers\Robert Sandor\RSandor - GuessingGame\RSandor - GuessingGame\obj\Debug\RSandor - GuessingGame.csproj.GenerateResource.Cache
+\\GMRSHARED\Xfers\Robert Sandor\RSandor - GuessingGame\RSandor - GuessingGame\obj\Debug\RSandor - GuessingGame.exe
+\\GMRSHARED\Xfers\Robert Sandor\RSandor - GuessingGame\RSandor - GuessingGame\obj\Debug\RSandor - GuessingGame.pdb

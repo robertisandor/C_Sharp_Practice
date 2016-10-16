@@ -1,5 +1,11 @@
+// including the "using System" directive is akin to "using std::cout"
+// it's there mainly to reduce the amount of keystrokes needed for Console.WriteLine
+// and Console.ReadLine
 using System;
+// had to add "using" directive for the generics to work
 using System.Collections.Generic;
+
+// I can also use the "using" keyword to declare an alias for a namespace
 
 namespace DataStructure
 {
@@ -15,6 +21,7 @@ namespace DataStructure
     private Node<T> head;
     private int size;
 
+    // don't need to add <T> to constructors
     public DoublyLinkedList()
     {
       size = 0;

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="LinkedListImplementation.exe" total="3" failures="0" not-run="0" date="2016-11-04" time="23:21:58">
+<test-results name="LinkedListImplementation.exe" total="4" failures="0" not-run="0" date="2016-11-04" time="23:39:12">
   <environment nunit-version="2.4.8.0" clr-version="4.0.30319.17020" os-version="Unix 15.6.0.0" platform="Unix" cwd="/Users/robertsandor/Documents/C#Practice" machine-name="Roberts-MacBook-Pro-2.local" user="robertsandor" user-domain="Roberts-MacBook-Pro-2.local" />
   <culture-info current-culture="en-US" current-uiculture="en-US" />
-  <test-suite name="LinkedListImplementation.exe" success="True" time="0.018" asserts="0">
+  <test-suite name="LinkedListImplementation.exe" success="True" time="0.019" asserts="0">
     <results>
       <test-suite name="SimpleDataStructures" success="True" time="0.016" asserts="0">
         <results>
-          <test-suite name="LinkedListTestClass" success="True" time="0.009" asserts="0">
+          <test-suite name="LinkedListTestClass" success="True" time="0.010" asserts="0">
             <results>
               <test-case name="SimpleDataStructures.LinkedListTestClass.AddFirstTest" executed="True" success="True" time="0.004" asserts="4" />
+              <test-case name="SimpleDataStructures.LinkedListTestClass.AddLastTest" executed="True" success="True" time="0.000" asserts="2" />
               <test-case name="SimpleDataStructures.LinkedListTestClass.ConstructorTest" executed="True" success="True" time="0.000" asserts="2" />
               <test-case name="SimpleDataStructures.LinkedListTestClass.PrintAllNodesTest" executed="True" success="True" time="0.000" asserts="0" />
             </results>

@@ -20,10 +20,19 @@ namespace SimpleDataStructures
       LinkedList testList = new LinkedList();
       testList.AddFirst(10);
       Assert.AreEqual(testList.Count, 1);
-      Assert.AreEqual(10, testList.Start.data);
+      Assert.AreEqual(testList.Start.data, 10);
       testList.AddFirst(20);
       Assert.AreEqual(testList.Count, 2);
-      Assert.AreEqual(20, testList.Start.data);
+      Assert.AreEqual(testList.Start.data, 20);
+    }
+
+    [Test]
+    public void AddLastTest()
+    {
+      LinkedList testList = new LinkedList();
+      testList.AddLast(5);
+      Assert.AreEqual(testList.Count, 1);
+      Assert.AreEqual(testList.Start.data, 5);
     }
 
     [Test]

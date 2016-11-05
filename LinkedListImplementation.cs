@@ -33,7 +33,7 @@ namespace SimpleDataStructures
       head = null;
     }
 
-    public void printAllNodes()
+    public void PrintAllNodes()
     {
       Node traversalNode = head;
 
@@ -68,6 +68,57 @@ namespace SimpleDataStructures
       }
       size++;
     }
+
+    public void AddLast(Object inputData)
+    {
+      Node traversalNode = head;
+      var nodeToAdd = new Node()
+      {
+        data = inputData
+      };
+
+      if (head == null)
+      {
+        head = nodeToAdd;
+      }
+      else
+      {
+        while(traversalNode.next != null)
+        {
+          traversalNode = traversalNode.next;
+        }
+        traversalNode.next = nodeToAdd;
+      }
+      size++;
+    }
+
+    public bool removeNode(int position)
+    {
+      Node traversalNode = head;
+      Node previousNode = null;
+      int count = 0;
+      if(head != null)
+      {
+        while(traversalNode.next != null && count < size)
+        {
+
+          if (count == position - 1)
+          {
+            previousNode.next = traversalNode.next;
+            return true;
+          }
+          count++;
+          previousNode = traversalNode;
+          traversalNode = traversalNode.next;
+        }
+      }
+      else
+      {
+        Console.WriteLine("List was empty. Nothing to remove.");
+        return true;
+      }
+
+    }
   }
 
   public class Program
@@ -76,9 +127,11 @@ namespace SimpleDataStructures
     {
       LinkedList testList = new LinkedList();
       testList.AddFirst(20);
-      testList.printAllNodes();
+      testList.PrintAllNodes();
       testList.AddFirst(30);
-      testList.printAllNodes();
+      testList.PrintAllNodes();
+      testList.AddLast(50);
+      testList.PrintAllNodes();
       Console.ReadKey();
     }
   }

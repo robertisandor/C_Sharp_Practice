@@ -1,19 +1,21 @@
 using System;
-
-public class Node
+namespace SimpleDataStructures
 {
-  private Object data;
-  private Node next;
-}
-
-public class LinkedList
-{
-  private Node head;
-  private int size;
-
-  public LinkedList()
+  public class Node
   {
-    size = 0;
-    head = null;
+    private Object data;
+    private Node next;
+  }
+
+  public class LinkedList
+  {
+    private Node head;
+    private int size;
+
+    public LinkedList()
+    {
+      size = 0;
+      head = null;
+    }
   }
 }

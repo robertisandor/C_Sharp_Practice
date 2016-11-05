@@ -46,8 +46,26 @@ namespace SimpleDataStructures
 
     public void AddFirst(Object inputData)
     {
-      head = new Node();
-      head.data = inputData;
+      var nodeToAdd = new Node()
+      {
+        data = inputData
+      };
+      // if the head is empty
+      if(head == null)
+      {
+        head = nodeToAdd;
+      }
+      else
+      {
+        var nodeToMove = new Node()
+        {
+          data = head.data,
+          next = head.next
+        };
+
+        head = nodeToAdd;
+        nodeToAdd.next = nodeToMove;
+      }
       size++;
     }
   }
@@ -58,6 +76,8 @@ namespace SimpleDataStructures
     {
       LinkedList testList = new LinkedList();
       testList.AddFirst(20);
+      testList.printAllNodes();
+      testList.AddFirst(30);
       testList.printAllNodes();
       Console.ReadKey();
     }

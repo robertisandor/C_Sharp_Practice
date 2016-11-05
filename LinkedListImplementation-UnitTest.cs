@@ -40,5 +40,19 @@ namespace SimpleDataStructures
     {
       // Figure out how to test console output
     }
+
+    [Test]
+    public void RemoveNodeTest()
+    {
+      LinkedList testList = new LinkedList();
+      testList.AddFirst(0);
+      testList.AddLast(5);
+      testList.AddLast(10);
+      testList.RemoveNode(1);
+      Assert.AreEqual(testList.Count, 2);
+      Assert.AreEqual(testList.Start.data, 5);
+
+      // add more cases once I add RetrieveNode method
+    }
   }
 }

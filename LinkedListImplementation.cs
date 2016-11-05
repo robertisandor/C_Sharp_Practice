@@ -92,12 +92,26 @@ namespace SimpleDataStructures
       size++;
     }
 
-    public bool removeNode(int position)
+    public bool RemoveNode(int position)
     {
       Node traversalNode = head;
       Node previousNode = null;
       int count = 0;
-      if(head != null)
+
+
+      if (position == 1)
+      {
+        head = traversalNode.next;
+        size--;
+        return true;
+      }
+      if (head == null)
+      {
+        Console.WriteLine("List was empty. Nothing to remove.");
+        size = 0;
+        return true;
+      }
+      else if(head != null)
       {
         while(traversalNode.next != null && count < size)
         {
@@ -105,6 +119,7 @@ namespace SimpleDataStructures
           if (count == position - 1)
           {
             previousNode.next = traversalNode.next;
+            size--;
             return true;
           }
           count++;
@@ -112,12 +127,7 @@ namespace SimpleDataStructures
           traversalNode = traversalNode.next;
         }
       }
-      else
-      {
-        Console.WriteLine("List was empty. Nothing to remove.");
-        return true;
-      }
-
+      return false;
     }
   }
 

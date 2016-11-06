@@ -54,5 +54,14 @@ namespace SimpleDataStructures
 
       // add more cases once I add RetrieveNode method
     }
+
+    [Test]
+    public void RetrieveNodeTest()
+    {
+      LinkedList testList = new LinkedList();
+      testList.AddFirst(10);
+      testList.AddLast(20);
+      Assert.AreEqual(testList.RetrieveNode(1), 10);
+    }
   }
 }

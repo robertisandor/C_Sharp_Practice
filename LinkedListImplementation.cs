@@ -129,6 +129,25 @@ namespace SimpleDataStructures
       }
       return false;
     }
+
+    public Node RetrieveNode(int position)
+    {
+      Node traversalNode = head;
+      Node returnNode = null;
+      int count = 0;
+      while(traversalNode != null)
+      {
+
+        count++;
+        if (position == count)
+        {
+          returnNode = traversalNode;
+        }
+        traversalNode = traversalNode.next;
+      }
+
+      return returnNode;
+    }
   }
 
   public class Program

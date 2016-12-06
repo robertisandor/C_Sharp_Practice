@@ -69,6 +69,11 @@ namespace SimpleDataStructures
       }
       size++;
     }
+
+    public void AddToEnd(T info)
+    {
+      
+    }
   }
 
   class Program

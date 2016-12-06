@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="LinkedListImplementation.exe" total="5" failures="0" not-run="0" date="2016-11-05" time="01:01:20">
+<test-results name="DoublyLinkedListImplementation.exe" total="1" failures="0" not-run="0" date="2016-12-06" time="00:03:07">
   <environment nunit-version="2.4.8.0" clr-version="4.0.30319.17020" os-version="Unix 15.6.0.0" platform="Unix" cwd="/Users/robertsandor/Documents/C#Practice" machine-name="Roberts-MacBook-Pro-2.local" user="robertsandor" user-domain="Roberts-MacBook-Pro-2.local" />
   <culture-info current-culture="en-US" current-uiculture="en-US" />
-  <test-suite name="LinkedListImplementation.exe" success="True" time="0.020" asserts="0">
+  <test-suite name="DoublyLinkedListImplementation.exe" success="True" time="0.017" asserts="0">
     <results>
-      <test-suite name="SimpleDataStructures" success="True" time="0.017" asserts="0">
+      <test-suite name="SimpleDataStructures" success="True" time="0.015" asserts="0">
         <results>
-          <test-suite name="LinkedListTestClass" success="True" time="0.011" asserts="0">
+          <test-suite name="DoublyLinkedListTestClass" success="True" time="0.007" asserts="0">
             <results>
-              <test-case name="SimpleDataStructures.LinkedListTestClass.AddFirstTest" executed="True" success="True" time="0.004" asserts="4" />
-              <test-case name="SimpleDataStructures.LinkedListTestClass.AddLastTest" executed="True" success="True" time="0.000" asserts="2" />
-              <test-case name="SimpleDataStructures.LinkedListTestClass.ConstructorTest" executed="True" success="True" time="0.000" asserts="2" />
-              <test-case name="SimpleDataStructures.LinkedListTestClass.PrintAllNodesTest" executed="True" success="True" time="0.000" asserts="0" />
-              <test-case name="SimpleDataStructures.LinkedListTestClass.RemoveNodeTest" executed="True" success="True" time="0.000" asserts="2" />
+              <test-case name="SimpleDataStructures.DoublyLinkedListTestClass.ConstructorTest" executed="True" success="True" time="0.004" asserts="2" />
             </results>
           </test-suite>
         </results>

@@ -3,34 +3,71 @@
 // and Console.ReadLine
 using System;
 // had to add "using" directive for the generics to work
+// should use generics instead of Object, because Object requires casting
 using System.Collections.Generic;
 
 // I can also use the "using" keyword to declare an alias for a namespace
 
-namespace DataStructure
+namespace SimpleDataStructures
 {
   public class Node<T>
   {
-    private T data;
-    private Node<T> next;
-    private Node<T> previous;
+    public T data;
+    public Node<T> next;
+    public Node<T> previous;
   }
 
   public class DoublyLinkedList<T>
   {
     private Node<T> head;
+    public Node<T> Head
+    {
+      get
+      {
+        return head;
+      }
+    }
     private int size;
+    public int Size
+    {
+      get
+      {
+        return size;
+      }
+    }
 
-    // don't need to add <T> to constructors
+    // don't need to add <T> to constructors - why again?
     public DoublyLinkedList()
     {
       size = 0;
       head = null;
     }
-    public DoublyLinkedList(int givenSize)
+
+    public void AddToFront(T info)
     {
-      size = givenSize;
-      head = null;
+      var nodeToAdd = new Node<T>
+      {
+        data = info,
+        previous = null,
+        next = null
+      };
+      if(head == null)
+      {
+        head = nodeToAdd;
+      }
+      else
+      {
+        var nodeToMove = new Node<T>
+        {
+          data = head.data,
+          next = head.next,
+          previous = nodeToAdd
+        };
+
+        head = nodeToAdd;
+        nodeToAdd.next = nodeToMove;
+      }
+      size++;
     }
   }
 
@@ -38,7 +75,8 @@ namespace DataStructure
   {
     static void Main(string[] args)
     {
-      DoublyLinkedList<int> list = new DoublyLinkedList<int>(5);
+      DoublyLinkedList<int> list = new DoublyLinkedList<int>();
+      list.AddToFront(1);
       Console.ReadKey();
     }
   }

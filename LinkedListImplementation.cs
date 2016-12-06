@@ -137,7 +137,6 @@ namespace SimpleDataStructures
       int count = 0;
       while(traversalNode != null)
       {
-
         count++;
         if (position == count)
         {

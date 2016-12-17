@@ -90,7 +90,7 @@ namespace SimpleDataStructures
         [Test]
         public void RemoveAtMiddleTest(DoublyLinkedList<int> testList)
         {
-            
+
         }
 
         [Test]
@@ -111,6 +111,24 @@ namespace SimpleDataStructures
 
         [Test]
         public void IndexOfTest(DoublyLinkedList<int> testList)
+        {
+
+        }
+
+        [Test]
+        public void ContainsItemIWantTest(DoublyLinkedList<int> testList)
+        {
+
+        }
+
+        [Test]
+        public void DoesNotContainItemIWantTest(DoublyLinkedList<int> testList)
+        {
+            
+        }
+
+        [Test]
+        public void ClearTest(DoublyLinkedList<int> testList)
         {
 
         }

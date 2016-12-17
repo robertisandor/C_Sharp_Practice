@@ -35,6 +35,9 @@ namespace SimpleDataStructures
       }
     }
 
+    // I've provided accessors but not mutators
+    // because I don't want the ability to change the head, tail, or size
+    // outside of the class
     private Node<T> _tail;
     public Node<T> Tail
     {
@@ -113,6 +116,19 @@ namespace SimpleDataStructures
       }
 
       _size++;
+    }
+
+    public void Clear()
+    {
+      _head = null;
+      _tail = null;
+      _size = 0;
+    }
+
+    public bool Contains(T info)
+    {
+      int index = IndexOf(info);
+      return (index != -1);
     }
 
     public int IndexOf(T info)
@@ -258,6 +274,8 @@ namespace SimpleDataStructures
       list.Insert(2, 0);
       list.PrintAllNodes();
       Console.WriteLine("The index of the data, 5, is {0}", list.IndexOf(5));
+      Console.WriteLine("It's {0} that the list contains 1", list.Contains(1));
+      Console.WriteLine("It's {0} that the list contains 8", list.Contains(8));
       list.RemoveAt(0);
       list.RemoveAt(1);
       list.PrintAllNodes();

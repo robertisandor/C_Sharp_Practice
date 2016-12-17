@@ -92,6 +92,58 @@ namespace SimpleDataStructures
       }
     }
 
+    public void Append(T info)
+    {
+      var nodeToAdd = new Node<T>
+      {
+        data = info,
+        previous = null,
+        next = null
+      };     
+
+      if(_tail == null)
+      {
+        _tail = _head = nodeToAdd;
+      }
+      else
+      { 
+        nodeToAdd.previous = _tail;
+        _tail.next = nodeToAdd;
+        _tail = nodeToAdd;
+      }
+
+      _size++;
+    }
+
+    public int IndexOf(T info)
+    {
+      int currentIndex = 0;
+      bool found = false;
+      Node<T> traversalNode = _head;
+      while(currentIndex < _size && traversalNode != null && !found)
+      {
+        // EqualityComparer is best used here. Why would overloading the operator ==
+        // or using .Equals() not be the best choices?
+        if(EqualityComparer<T>.Default.Equals(info, traversalNode.data))
+        {
+          found = true;
+        }
+        else
+        {
+          traversalNode = traversalNode.next;
+          currentIndex++;
+        }
+      }
+
+      // In case it's not in the list, give a negative index and tell the user
+      if(currentIndex >= _size)
+      {
+        currentIndex = -1;
+        Console.WriteLine("That isn't in the list.");
+      }
+      return currentIndex;
+    }
+
     public void Insert(T info, int index)
     {
       if(index < 0 || index >= Size)
@@ -139,34 +191,43 @@ namespace SimpleDataStructures
       }
 
       _size++;
-    }
-
-    public void Append(T info)
-    {
-      var nodeToAdd = new Node<T>
-      {
-        data = info,
-        previous = null,
-        next = null
-      };     
-
-      if(_tail == null)
-      {
-        _tail = _head = nodeToAdd;
-      }
-      else
-      { 
-        nodeToAdd.previous = _tail;
-        _tail.next = nodeToAdd;
-        _tail = nodeToAdd;
-      }
-
-      _size++;
     } 
 
-    public void RemoveNode(int position)
+    public void RemoveAt(int position)
     {
+      if(position < 0 || position >= Size)
+      {
+        throw new ArgumentOutOfRangeException("Out of range!");
+      }
 
+      Node<T> currentNode = Head;
+      Node<T> previousNode = null;
+      for(int currentIndex = 0; currentIndex < position; currentIndex++)
+      {
+        previousNode = currentNode;
+        currentNode = currentNode.next;
+      }
+
+      if(previousNode == null)
+      {
+        _head = currentNode.next;
+        _head.previous = null;
+      }
+      else if(position == _size - 1)
+      {
+        previousNode.next = currentNode.next;
+        _tail = previousNode;
+        currentNode = null;
+      }
+      else
+      {
+        previousNode.next = currentNode.next;
+        currentNode.next.previous = previousNode;
+      }
+      if(_size > 0)
+      {
+        _size--;
+      }
     }
 
     public void PrintAllNodes()
@@ -195,7 +256,10 @@ namespace SimpleDataStructures
       list.Insert(1, 0);
       list.Append(5);
       list.Insert(2, 0);
-      
+      list.PrintAllNodes();
+      Console.WriteLine("The index of the data, 5, is {0}", list.IndexOf(5));
+      list.RemoveAt(0);
+      list.RemoveAt(1);
       list.PrintAllNodes();
       Console.ReadKey();
     }

@@ -7,10 +7,10 @@ namespace SimpleDataStructures
     // is this the proper way to set up parameterized tests?
     // how do I set up parameterized test fixtures that are generic?
     // with no parameters, the tests don't run
-    //[TestFixture]
+    [TestFixture]
     // with 1 parameter though, I get the error:
     // "The type `NUnit.Framework.TestFixtureAttribute' does not contain a constructor that takes `1' arguments"
-    [TestFixture(typeof(DoublyLinkedList<int>))]
+    //[TestFixture(typeof(DoublyLinkedList<int>))]
     // what do the TList and Ilist mean in this context? what does where and new do in this context?
     // where - generic type constraint, 
     // new() - constructor constraint; any type argument supplied must have 
@@ -78,23 +78,41 @@ namespace SimpleDataStructures
         }
 
         [Test]
-        public void RemoveNode(DoublyLinkedList<int> testList)
+        public void RemoveAtHeadTest(DoublyLinkedList<int> testList)
         {
             testList.Insert(10, 0);
-            testList.RemoveNode(1);
+            testList.RemoveAt(0);
             Assert.AreEqual(0, testList.Size);
             Assert.AreEqual(null, testList.Head);
             Assert.AreEqual(null, testList.Tail);
         }
 
+        [Test]
+        public void RemoveAtMiddleTest(DoublyLinkedList<int> testList)
+        {
+            
+        }
+
+        [Test]
+        public void RemoveAtTailTest(DoublyLinkedList<int> testList)
+        {
+
+        }
+
         // how do I test a function that prints out messages/data?
         [Test]
-        public void PrintAllNodes(DoublyLinkedList<int> testList)
+        public void PrintAllNodesTest(DoublyLinkedList<int> testList)
         {
             testList.Insert(1, 0);
             testList.Append(2);
             testList.Append(3);
             testList.Append(5);
+        }
+
+        [Test]
+        public void IndexOfTest(DoublyLinkedList<int> testList)
+        {
+
         }
     }
 }

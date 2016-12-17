@@ -3,6 +3,18 @@ using System.Collections.Generic;
 
 namespace SimpleDataStructures
 {
+    // I've seen someone use an interface,
+    // then have the class from the interface
+    // is this customary? is this a preferable implementation?
+
+    // I've also seen an implementation that uses an IEnumerator
+    // to support foreach
+    // then, in the same implementation with the IEnumerator,
+    // they use a Contains method that utilizes the foreach
+
+    // should I create a private helper function to automatically resize the array?
+    // I could use it for both the Push & Pop methods
+
     public class Stack<T>
     {
         private int _lastIndex;
@@ -13,8 +25,8 @@ namespace SimpleDataStructures
                 return _lastIndex;
             }
         }
-        private T[] _stack;
 
+        private T[] _stack;
         public Stack()
         {
             _lastIndex = 0;
@@ -31,15 +43,24 @@ namespace SimpleDataStructures
             _lastIndex = 0;
         }
 
-        public void Push(T data)
+        public void Clear()
         {
-            // use .Length property of array to figure out capacity
-            if(_lastIndex + 1 >= _stack.Length)
+            _lastIndex = 0;
+            _stack[_lastIndex] = default(T);
+        }
+
+        public bool IsEmpty()
+        {
+            return (_lastIndex == 0);
+        }
+
+        public T Peek()
+        {
+            if(_lastIndex == 0)
             {
-                Array.Resize(ref _stack, (_stack.Length + 1) * 2);
+                return default(T);
             }
-            _stack[_lastIndex] = data;
-            _lastIndex++;
+            return _stack[_lastIndex - 1];
         }
 
         public T Pop()
@@ -57,9 +78,15 @@ namespace SimpleDataStructures
             return data;
         }
 
-        public bool IsEmpty()
+        public void Push(T data)
         {
-            return (_lastIndex == 0);
+            // use .Length property of array to figure out capacity
+            if(_lastIndex + 1 >= _stack.Length)
+            {
+                Array.Resize(ref _stack, (_stack.Length + 1) * 2);
+            }
+            _stack[_lastIndex] = data;
+            _lastIndex++;
         }
     }
 

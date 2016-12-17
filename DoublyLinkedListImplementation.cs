@@ -10,78 +10,193 @@ using System.Collections.Generic;
 
 namespace SimpleDataStructures
 {
-  public class Node<T>
-  {
-    public T data;
-    public Node<T> next;
-    public Node<T> previous;
-  }
-
   public class DoublyLinkedList<T>
   {
-    private Node<T> head;
+    // am I implementing a nested class correctly?
+    // I'm getting a warning related to 
+    // the templated parameter of Node - should it be templated?
+    // Yes, it should be templated; however, it shouldn't have the same parameter
+    // as the class it's nested in
+    public class Node<T2>
+    {
+      public T2 data;
+      public Node<T2> next;
+      public Node<T2> previous;
+    }
+
+    // is the head a separate Node that doesn't contain a value?
+    // or is it the first node in the list?
+    private Node<T> _head;
     public Node<T> Head
     {
       get
       {
-        return head;
+        return _head;
       }
     }
-    private int size;
+
+    private Node<T> _tail;
+    public Node<T> Tail
+    {
+      get
+      {
+        return _tail;
+      }
+    }
+
+    private int _size;
     public int Size
     {
       get
       {
-        return size;
+        return _size;
       }
     }
 
     // don't need to add <T> to constructors - why again?
     public DoublyLinkedList()
     {
-      size = 0;
-      head = null;
+      _size = 0;
+      _head = null;
+      _tail = null;
     }
 
-    public void AddToFront(T info)
+    // overloaded index operator
+    public T this[int index]
+    {
+      get
+      {
+        if(index < 0 || index >= Size)
+        {
+          throw new ArgumentOutOfRangeException("Out of range!");
+        }
+        Node<T> traversalNode = this.Head;
+        for(int currentIndex = 0; currentIndex < index; currentIndex++)
+        {
+          traversalNode = traversalNode.next;
+        }
+        return traversalNode.data;
+      }
+      set
+      {
+        if(index < 0 || index >= Size)
+        {
+          throw new ArgumentOutOfRangeException("Out of range!");
+        }
+        Node<T> currentNode = this.Head;
+        for(int currentIndex = 0; currentIndex < index; currentIndex++)
+        {
+          currentNode = currentNode.next;
+        }
+        currentNode.data = value;
+      }
+    }
+
+    public void Insert(T info, int index)
+    {
+      if(index < 0 || index >= Size)
+      {
+        throw new ArgumentOutOfRangeException("Out of range!");
+      }
+
+      var nodeToAdd = new Node<T>
+      {
+        data = info,
+        next = null,
+        previous = null
+      };
+
+      int currentIndex = 0;
+      Node<T> currentNode = _head;
+      Node<T> previousNode = null;
+
+      while(currentIndex < index)
+      {
+        previousNode = currentNode;
+        currentNode = currentNode.next;
+        currentIndex++;
+      }
+
+      if(index == 0)
+      {
+        nodeToAdd.previous = _head.previous;
+        nodeToAdd.next = _head;
+        _head.previous = nodeToAdd;
+        _head = nodeToAdd;
+      }
+      else if(index == Size - 1)
+      {
+        nodeToAdd.previous = _tail;
+        _tail.next = nodeToAdd;
+        nodeToAdd = _tail;
+      }
+      else
+      {
+        nodeToAdd.next = previousNode.next;
+        previousNode = nodeToAdd;
+        nodeToAdd.previous = currentNode.previous;
+        currentNode.previous = nodeToAdd;
+      }
+
+      _size++;
+    }
+
+    public void Append(T info)
     {
       var nodeToAdd = new Node<T>
       {
         data = info,
         previous = null,
         next = null
-      };
-      if(head == null)
+      };     
+
+      if(_tail == null)
       {
-        head = nodeToAdd;
+        _tail = _head = nodeToAdd;
       }
       else
-      {
-        var nodeToMove = new Node<T>
-        {
-          data = head.data,
-          next = head.next,
-          previous = nodeToAdd
-        };
-
-        head = nodeToAdd;
-        nodeToAdd.next = nodeToMove;
+      { 
+        nodeToAdd.previous = _tail;
+        _tail.next = nodeToAdd;
+        _tail = nodeToAdd;
       }
-      size++;
+
+      _size++;
+    } 
+
+    public void RemoveNode(int position)
+    {
+
     }
 
-    public void AddToEnd(T info)
+    public void PrintAllNodes()
     {
-      
+      Node<T> currentNode = new Node<T>
+      {
+        data = Head.data,
+        next = Head.next,
+        previous = Head.previous
+      };
+    
+      while(currentNode != null)
+      {
+        Console.WriteLine(currentNode.data);
+        currentNode = currentNode.next;
+      }
     }
   }
 
   class Program
   {
-    static void Main(string[] args)
+    static void Main()
     {
       DoublyLinkedList<int> list = new DoublyLinkedList<int>();
-      list.AddToFront(1);
+      list.Append(3);
+      list.Insert(1, 0);
+      list.Append(5);
+      list.Insert(2, 0);
+      
+      list.PrintAllNodes();
       Console.ReadKey();
     }
   }

@@ -267,19 +267,19 @@ namespace SimpleDataStructures
   {
     static void Main()
     {
-      DoublyLinkedList<int> list = new DoublyLinkedList<int>();
-      list.Append(3);
-      list.Insert(1, 0);
-      list.Append(5);
-      list.Insert(2, 0);
-      list.PrintAllNodes();
-      Console.WriteLine("The index of the data, 5, is {0}", list.IndexOf(5));
-      Console.WriteLine("It's {0} that the list contains 1", list.Contains(1));
-      Console.WriteLine("It's {0} that the list contains 8", list.Contains(8));
-      list.RemoveAt(0);
-      list.RemoveAt(1);
-      list.PrintAllNodes();
-      Console.ReadKey();
+      // DoublyLinkedList<int> list = new DoublyLinkedList<int>();
+      // list.Append(3);
+      // list.Insert(1, 0);
+      // list.Append(5);
+      // list.Insert(2, 0);
+      // list.PrintAllNodes();
+      // Console.WriteLine("The index of the data, 5, is {0}", list.IndexOf(5));
+      // Console.WriteLine("It's {0} that the list contains 1", list.Contains(1));
+      // Console.WriteLine("It's {0} that the list contains 8", list.Contains(8));
+      // list.RemoveAt(0);
+      // list.RemoveAt(1);
+      // list.PrintAllNodes();
+      // Console.ReadKey();
     }
   }
 }

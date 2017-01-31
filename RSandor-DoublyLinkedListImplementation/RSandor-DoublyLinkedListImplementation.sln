@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSandor-DoublyLinkedListImplementation", "RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementation.csproj", "{187B3A48-835E-4614-830B-81B76E23608E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSandor-DoublyLinkedListImplementationTests", "RSandor-DoublyLinkedListImplementationTests\RSandor-DoublyLinkedListImplementationTests.csproj", "{E4422C85-7EC5-4430-A60A-5E75321E8541}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{187B3A48-835E-4614-830B-81B76E23608E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{187B3A48-835E-4614-830B-81B76E23608E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{187B3A48-835E-4614-830B-81B76E23608E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{187B3A48-835E-4614-830B-81B76E23608E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4422C85-7EC5-4430-A60A-5E75321E8541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4422C85-7EC5-4430-A60A-5E75321E8541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4422C85-7EC5-4430-A60A-5E75321E8541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4422C85-7EC5-4430-A60A-5E75321E8541}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

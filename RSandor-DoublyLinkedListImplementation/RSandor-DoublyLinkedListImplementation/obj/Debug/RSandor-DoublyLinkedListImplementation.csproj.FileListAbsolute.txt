@@ -1,0 +1,9 @@
+c:\users\visitordl1\documents\visual studio 2015\Projects\RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementation\bin\Debug\RSandor-DoublyLinkedListImplementation.exe.config
+c:\users\visitordl1\documents\visual studio 2015\Projects\RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementation\bin\Debug\RSandor-DoublyLinkedListImplementation.exe
+c:\users\visitordl1\documents\visual studio 2015\Projects\RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementation\bin\Debug\RSandor-DoublyLinkedListImplementation.pdb
+c:\users\visitordl1\documents\visual studio 2015\Projects\RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementation\obj\Debug\RSandor-DoublyLinkedListImplementation.csprojResolveAssemblyReference.cache
+c:\users\visitordl1\documents\visual studio 2015\Projects\RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementation\obj\Debug\RSandor-DoublyLinkedListImplementation.exe
+c:\users\visitordl1\documents\visual studio 2015\Projects\RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementation\obj\Debug\RSandor-DoublyLinkedListImplementation.pdb
+\\GMRSHARED\Xfers\Robert Sandor\RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementation\bin\Debug\RSandor-DoublyLinkedListImplementation.exe.config
+\\GMRSHARED\Xfers\Robert Sandor\RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementation\obj\Debug\RSandor-DoublyLinkedListImplementation.exe
+\\GMRSHARED\Xfers\Robert Sandor\RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementation\obj\Debug\RSandor-DoublyLinkedListImplementation.pdb

@@ -1,1 +1,5 @@
 *.exe
+RSandor-DoublyLinkedListImplementation/RSandor-DoublyLinkedListImplementationTests/bin/*
+RSandor-DoublyLinkedListImplementation/RSandor-DoublyLinkedListImplementationTests/obj/*
+RSandor-DoublyLinkedListImplementation/RSandor-DoublyLinkedListImplementation/obj/*
+RSandor-DoublyLinkedListImplementation/RSandor-DoublyLinkedListImplementation/bin/*

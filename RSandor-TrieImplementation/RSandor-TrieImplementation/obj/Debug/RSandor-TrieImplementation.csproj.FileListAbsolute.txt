@@ -1,0 +1,15 @@
+c:\users\visitordl6\documents\visual studio 2015\Projects\RSandor-TrieImplementation\RSandor-TrieImplementation\bin\Debug\RSandor-TrieImplementation.exe.config
+c:\users\visitordl6\documents\visual studio 2015\Projects\RSandor-TrieImplementation\RSandor-TrieImplementation\obj\Debug\RSandor-TrieImplementation.csprojResolveAssemblyReference.cache
+C:\Users\VisitorDL1\Documents\Visual Studio 2015\Projects\RSandor-TrieImplementation\RSandor-TrieImplementation\bin\Debug\RSandor-TrieImplementation.exe.config
+C:\Users\VisitorDL2\Documents\Visual Studio 2015\Projects\RSandor-TrieImplementation\RSandor-TrieImplementation\bin\Debug\RSandor-TrieImplementation.exe.config
+\\GMRSHARED\Xfers\Robert Sandor\RSandor-TrieImplementation\RSandor-TrieImplementation\bin\Debug\RSandor-TrieImplementation.exe.config
+\\GMRSHARED\Xfers\Robert Sandor\RSandor-TrieImplementation\RSandor-TrieImplementation\bin\Debug\RSandor-TrieImplementation.exe
+\\GMRSHARED\Xfers\Robert Sandor\RSandor-TrieImplementation\RSandor-TrieImplementation\bin\Debug\RSandor-TrieImplementation.pdb
+\\GMRSHARED\Xfers\Robert Sandor\RSandor-TrieImplementation\RSandor-TrieImplementation\obj\Debug\RSandor-TrieImplementation.csprojResolveAssemblyReference.cache
+\\GMRSHARED\Xfers\Robert Sandor\RSandor-TrieImplementation\RSandor-TrieImplementation\obj\Debug\RSandor-TrieImplementation.exe
+\\GMRSHARED\Xfers\Robert Sandor\RSandor-TrieImplementation\RSandor-TrieImplementation\obj\Debug\RSandor-TrieImplementation.pdb
+C:\Users\VisitorDL1\Documents\Visual Studio 2015\Projects\RSandor-TrieImplementation\RSandor-TrieImplementation\obj\Debug\RSandor-TrieImplementation.exe
+C:\Users\VisitorDL1\Documents\Visual Studio 2015\Projects\RSandor-TrieImplementation\RSandor-TrieImplementation\obj\Debug\RSandor-TrieImplementation.pdb
+C:\Users\VisitorDL1\Documents\Visual Studio 2015\Projects\RSandor-TrieImplementation\RSandor-TrieImplementation\bin\Debug\RSandor-TrieImplementation.exe
+C:\Users\VisitorDL1\Documents\Visual Studio 2015\Projects\RSandor-TrieImplementation\RSandor-TrieImplementation\bin\Debug\RSandor-TrieImplementation.pdb
+C:\Users\VisitorDL1\Documents\Visual Studio 2015\Projects\RSandor-TrieImplementation\RSandor-TrieImplementation\obj\Debug\RSandor-TrieImplementation.csprojResolveAssemblyReference.cache

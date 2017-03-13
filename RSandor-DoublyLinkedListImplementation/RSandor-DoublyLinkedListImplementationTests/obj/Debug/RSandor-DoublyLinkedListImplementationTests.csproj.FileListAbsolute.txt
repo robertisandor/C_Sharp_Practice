@@ -1,8 +1,0 @@
-c:\users\visitordl1\documents\visual studio 2015\Projects\RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementationTests\bin\Debug\RSandor-DoublyLinkedListImplementationTests.dll
-c:\users\visitordl1\documents\visual studio 2015\Projects\RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementationTests\bin\Debug\RSandor-DoublyLinkedListImplementationTests.pdb
-c:\users\visitordl1\documents\visual studio 2015\Projects\RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementationTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
-c:\users\visitordl1\documents\visual studio 2015\Projects\RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementationTests\bin\Debug\RSandor-DoublyLinkedListImplementation.exe
-c:\users\visitordl1\documents\visual studio 2015\Projects\RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementationTests\bin\Debug\RSandor-DoublyLinkedListImplementation.pdb
-c:\users\visitordl1\documents\visual studio 2015\Projects\RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementationTests\obj\Debug\RSandor-DoublyLinkedListImplementationTests.csprojResolveAssemblyReference.cache
-c:\users\visitordl1\documents\visual studio 2015\Projects\RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementationTests\obj\Debug\RSandor-DoublyLinkedListImplementationTests.dll
-c:\users\visitordl1\documents\visual studio 2015\Projects\RSandor-DoublyLinkedListImplementation\RSandor-DoublyLinkedListImplementationTests\obj\Debug\RSandor-DoublyLinkedListImplementationTests.pdb

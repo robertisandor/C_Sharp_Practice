@@ -7,3 +7,4 @@ RSandor-BinarySearchTreeImplementation/BinarySearchTreeTests/obj/*
 RSandor-BinarySearchTreeImplementation/BinarySearchTreeTests/bin/*
 RSandor-BinarySearchTreeImplementation/RSandor-BinarySearchTreeImplementationTests1/obj/*
 RSandor-BinarySearchTreeImplementation/RSandor-BinarySearchTreeImplementationTests1/bin/*
+*.xml

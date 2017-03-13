@@ -1,9 +1,0 @@
-c:\users\visitordl4\documents\visual studio 2015\Projects\RobertSandor-DiceGame\RobertSandor-DiceGame\bin\Debug\RobertSandor-DiceGame.exe.config
-c:\users\visitordl4\documents\visual studio 2015\Projects\RobertSandor-DiceGame\RobertSandor-DiceGame\bin\Debug\RobertSandor-DiceGame.exe
-c:\users\visitordl4\documents\visual studio 2015\Projects\RobertSandor-DiceGame\RobertSandor-DiceGame\bin\Debug\RobertSandor-DiceGame.pdb
-c:\users\visitordl4\documents\visual studio 2015\Projects\RobertSandor-DiceGame\RobertSandor-DiceGame\obj\Debug\RobertSandor-DiceGame.csprojResolveAssemblyReference.cache
-c:\users\visitordl4\documents\visual studio 2015\Projects\RobertSandor-DiceGame\RobertSandor-DiceGame\obj\Debug\RobertSandor-DiceGame.exe
-c:\users\visitordl4\documents\visual studio 2015\Projects\RobertSandor-DiceGame\RobertSandor-DiceGame\obj\Debug\RobertSandor-DiceGame.pdb
-\\GMRSHARED\Xfers\Robert Sandor\RobertSandor-DiceGame\RobertSandor-DiceGame\bin\Debug\RobertSandor-DiceGame.exe.config
-\\GMRSHARED\Xfers\Robert Sandor\RobertSandor-DiceGame\RobertSandor-DiceGame\obj\Debug\RobertSandor-DiceGame.exe
-\\GMRSHARED\Xfers\Robert Sandor\RobertSandor-DiceGame\RobertSandor-DiceGame\obj\Debug\RobertSandor-DiceGame.pdb

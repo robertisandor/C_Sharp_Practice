@@ -1,6 +1,0 @@
-c:\users\ocsi\documents\visual studio 2015\Projects\RSandor-HackerTyper\RSandor-HackerTyper\bin\Debug\RSandor-HackerTyper.exe.config
-c:\users\ocsi\documents\visual studio 2015\Projects\RSandor-HackerTyper\RSandor-HackerTyper\bin\Debug\RSandor-HackerTyper.exe
-c:\users\ocsi\documents\visual studio 2015\Projects\RSandor-HackerTyper\RSandor-HackerTyper\bin\Debug\RSandor-HackerTyper.pdb
-c:\users\ocsi\documents\visual studio 2015\Projects\RSandor-HackerTyper\RSandor-HackerTyper\obj\Debug\RSandor-HackerTyper.csprojResolveAssemblyReference.cache
-c:\users\ocsi\documents\visual studio 2015\Projects\RSandor-HackerTyper\RSandor-HackerTyper\obj\Debug\RSandor-HackerTyper.exe
-c:\users\ocsi\documents\visual studio 2015\Projects\RSandor-HackerTyper\RSandor-HackerTyper\obj\Debug\RSandor-HackerTyper.pdb

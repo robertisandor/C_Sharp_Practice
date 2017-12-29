@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RSandor_BrickbreakerXNA.GameObjects.Brick">
+    <Position X="5.25" Y="1.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="RSandor_BrickbreakerXNA.GameObjects.Brick.Side" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GameObjects\Brick.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAABAAAAAAAAAQAAAgAAAAAAAA=</HashCode>
+      <FileName>GameObjects\Brick.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RSandor_BrickbreakerXNA.GameObjects.MovingSprite" Collapsed="true">
+    <Position X="2.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEBAAAAAAAAAAAAQAAAAIAAAAAAAA=</HashCode>
+      <FileName>GameObjects\MovingSprite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RSandor_BrickbreakerXNA.Sprite" Collapsed="true">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAgAgBAAAAEAAAAAAAAAAAAIAgAAAAAA=</HashCode>
+      <FileName>GameObjects\Sprite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RSandor_BrickbreakerXNA.GameObjects.Paddle" Collapsed="true">
+    <Position X="1" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameObjects\Paddle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RSandor_BrickbreakerXNA.GameObjects.Ball" Collapsed="true">
+    <Position X="3.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameObjects\Ball.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RSandor_BrickbreakerXNA.Screens.Screen">
+    <Position X="8.5" Y="0.75" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="RSandor_BrickbreakerXNA.Screens.Screen.ScreenTypes" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Screens\Screen.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>EAQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Screens\Screen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RSandor_BrickbreakerXNA.Screens.TitleScreen">
+    <Position X="7" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Screens\TitleScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RSandor_BrickbreakerXNA.Screens.GameScreen">
+    <Position X="8.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Screens\GameScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RSandor_BrickbreakerXNA.Screens.GameOverScreen">
+    <Position X="10.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Screens\GameOverScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

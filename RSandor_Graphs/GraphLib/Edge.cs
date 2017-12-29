@@ -18,17 +18,27 @@ namespace GraphLib
     // I will need to compare the edges to each other to most likely compare the weights
     public class Edge<T>
     {
-        Vertex<T> Start;
-        Vertex<T> End;
+        public Vertex<T> Start;
+        public  Vertex<T> End;
 
-        bool isWeighted;
+        readonly bool isWeighted;
 
         // have an internal constructor so that an individual can't create an Edge by itself
         // (creating an Edge by itself doesn't make sense because it isn't used except in the context of a graph)
         // there is a CreateEdge function within the Graph class that the user can use to 
-        internal Edge(bool isWeighted)
+        internal Edge(Vertex<T> start, Vertex<T> end, bool isWeighted, float weight = 1.0f)
         {
             this.isWeighted = isWeighted;
+            if(!this.isWeighted)
+            {
+                if(Math.Abs(weight - 1.0f) > 0.000001)
+                {
+                    throw new InvalidOperationException("Unweighted edges can't be given a weight");
+                }
+                Weight = 1.0f;
+            }
+            Start = start;
+            End = end;
         }
 
         float weight;

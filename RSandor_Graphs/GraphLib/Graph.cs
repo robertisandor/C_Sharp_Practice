@@ -19,12 +19,13 @@ namespace GraphLib
         // do I want the user the ability to change IsWeighted whenever?
         // I feel like it should only be changed/set at the very beginning
         // if so, I would make this readonly
-        public bool IsWeighted { get; private set; }
-
+        public readonly bool IsWeighted;
+        public readonly bool IsDirected;
         // do I want to have 2 separate lists or 1 combined list of edges?
         // List<Edge<T>> outgoing;
         // List<Edge<T>> ingoing;
-        // List<Edge<T>> edges;
+        public List<Vertex<T>> Vertices;
+        public List<Edge<T>> Edges;
 
         // is there a particular reason reflection is avoided?
         // reflection is slow, expensive and generally avoided
@@ -36,18 +37,32 @@ namespace GraphLib
         // what benefits does using 2 lists have over 1?
 
 
-        public Graph(bool isWeighted)
+        public Graph(bool isWeighted, bool isDirected)
         {
             IsWeighted = isWeighted;
+            IsDirected = isDirected;
         }
 
-        public Edge<T> CreateEdge()
+        public List<Edge<T>> CreateEdge(Vertex<T> firstVertex, Vertex<T> secondVertex, float weight = 1.0f)
         {
-            return new Edge<T>(IsWeighted);
+            List<Edge<T>> edgesCreated = new List<Edge<T>>();
+            edgesCreated.Add(new Edge<T>(firstVertex, secondVertex, IsWeighted, weight));
+            if(!IsDirected)
+            {
+                edgesCreated.Add(new Edge<T>(secondVertex, firstVertex, IsWeighted, weight));
+            }
+            return edgesCreated;
         }
-        public Vertex<T> CreateVertex()
+
+        /* creating separate functions for directed and undirected 
+         * gives a chance for the graph and edge to be misaligned
+         * but if I'm creating an undirected graph, I want to return all of the edges I'm creating
+         * maybe always returning a list
+         * */
+
+        public Vertex<T> CreateVertex<T>(T value)
         {
-            return new Vertex<T>();
+            return new Vertex<T>(value);
         }
     }
 }

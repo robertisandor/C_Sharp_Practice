@@ -14,9 +14,7 @@ using System.Threading.Tasks;
  */
 namespace GraphLib
 {
-    //  I should make this an IComparable at some point.
-    // I will need to compare the edges to each other to most likely compare the weights
-    public class Edge<T>
+    public class Edge<T> where T : IComparable<T>
     {
         public Vertex<T> Start;
         public  Vertex<T> End;
@@ -26,6 +24,14 @@ namespace GraphLib
         // have an internal constructor so that an individual can't create an Edge by itself
         // (creating an Edge by itself doesn't make sense because it isn't used except in the context of a graph)
         // there is a CreateEdge function within the Graph class that the user can use to 
+
+        /// <summary>
+        /// Weighted edge constructor
+        /// </summary>
+        /// <param name="start">The start vertex of the edge</param>
+        /// <param name="end">The end vertex of the edge</param>
+        /// <param name="isWeighted"></param>
+        /// <param name="weight"></param>
         internal Edge(Vertex<T> start, Vertex<T> end, bool isWeighted, float weight)
         {
             IsWeighted = isWeighted;
@@ -43,6 +49,13 @@ namespace GraphLib
             Start = start;
             End = end;
         }
+
+        /// <summary>
+        /// Unweighted edge constructor
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="isWeighted"></param>
         internal Edge(Vertex<T> start, Vertex<T> end, bool isWeighted)
         {
             IsWeighted = isWeighted;

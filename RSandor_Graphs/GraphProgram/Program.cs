@@ -13,15 +13,10 @@ namespace RSandor_Graphs
         static void Main(string[] args)
         {
             /*
-            var graph = new Graph<int>(true);
-            var edge = graph.CreateEdge();
-            edge.Weight = 3;
-            */
-            
             var unweightedUndirectedGraph = new Graph<int>(false, false);
-            unweightedUndirectedGraph.Vertices.Add(unweightedUndirectedGraph.CreateVertex<int>(0));
-            unweightedUndirectedGraph.Vertices.Add(unweightedUndirectedGraph.CreateVertex<int>(1));
-            unweightedUndirectedGraph.Vertices.Add(unweightedUndirectedGraph.CreateVertex<int>(2));
+            unweightedUndirectedGraph.Vertices.Add(unweightedUndirectedGraph.CreateVertex(0));
+            unweightedUndirectedGraph.Vertices.Add(unweightedUndirectedGraph.CreateVertex(1));
+            unweightedUndirectedGraph.Vertices.Add(unweightedUndirectedGraph.CreateVertex(2));
             unweightedUndirectedGraph.Edges.AddRange(unweightedUndirectedGraph.CreateEdge(unweightedUndirectedGraph.Vertices[0], unweightedUndirectedGraph.Vertices[1]));
             foreach (var vertex in unweightedUndirectedGraph.Vertices)
             {
@@ -31,7 +26,7 @@ namespace RSandor_Graphs
             {
                 Console.WriteLine($"edge.Start = {edge.Start.Value} & edge.End = {edge.End.Value}");
             }
-            
+            */
             Console.ReadKey();
         }
     }

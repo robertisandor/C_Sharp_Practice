@@ -21,22 +21,37 @@ namespace GraphLib
         public Vertex<T> Start;
         public  Vertex<T> End;
 
-        readonly bool isWeighted;
+        public readonly bool IsWeighted;
 
         // have an internal constructor so that an individual can't create an Edge by itself
         // (creating an Edge by itself doesn't make sense because it isn't used except in the context of a graph)
         // there is a CreateEdge function within the Graph class that the user can use to 
-        internal Edge(Vertex<T> start, Vertex<T> end, bool isWeighted, float weight = 1.0f)
+        internal Edge(Vertex<T> start, Vertex<T> end, bool isWeighted, float weight)
         {
-            this.isWeighted = isWeighted;
-            if(!this.isWeighted)
+            IsWeighted = isWeighted;
+            if(!IsWeighted)
             {
                 if(Math.Abs(weight - 1.0f) > 0.000001)
                 {
                     throw new InvalidOperationException("Unweighted edges can't be given a weight");
-                }
-                Weight = 1.0f;
+                } 
             }
+            else
+            {
+                Weight = weight;
+            }
+            Start = start;
+            End = end;
+        }
+        internal Edge(Vertex<T> start, Vertex<T> end, bool isWeighted)
+        {
+            IsWeighted = isWeighted;
+
+            if(isWeighted)
+            {
+                throw new InvalidOperationException("Weighted edges must be given a weight");
+            }
+
             Start = start;
             End = end;
         }
@@ -47,7 +62,7 @@ namespace GraphLib
             get => weight;
             set
             {
-                if (!isWeighted)
+                if (!IsWeighted)
                 {
                     throw new InvalidOperationException("Cannot change weight in an unweighted graph");
                 }

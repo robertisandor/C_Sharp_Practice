@@ -41,15 +41,28 @@ namespace GraphLib
         {
             IsWeighted = isWeighted;
             IsDirected = isDirected;
+            Vertices = new List<Vertex<T>>();
+            Edges = new List<Edge<T>>();
         }
 
-        public List<Edge<T>> CreateEdge(Vertex<T> firstVertex, Vertex<T> secondVertex, float weight = 1.0f)
+        public List<Edge<T>> CreateEdge(Vertex<T> firstVertex, Vertex<T> secondVertex, float weight)
         {
             List<Edge<T>> edgesCreated = new List<Edge<T>>();
             edgesCreated.Add(new Edge<T>(firstVertex, secondVertex, IsWeighted, weight));
             if(!IsDirected)
             {
                 edgesCreated.Add(new Edge<T>(secondVertex, firstVertex, IsWeighted, weight));
+            }
+            return edgesCreated;
+        }
+
+        public List<Edge<T>> CreateEdge(Vertex<T> firstVertex, Vertex<T> secondVertex)
+        {
+            List<Edge<T>> edgesCreated = new List<Edge<T>>();
+            edgesCreated.Add(new Edge<T>(firstVertex, secondVertex, IsWeighted));
+            if (!IsDirected)
+            {
+                edgesCreated.Add(new Edge<T>(secondVertex, firstVertex, IsWeighted));
             }
             return edgesCreated;
         }

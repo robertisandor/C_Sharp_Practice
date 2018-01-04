@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-using System.Numerics;
 
 namespace RSandor_Graphs
 {
@@ -19,11 +18,26 @@ namespace RSandor_Graphs
             edge.Weight = 3;
             */
             
-            var graph = new Graph<int>(false, false);
-            graph.CreateVertex<int>(0);
-            graph.CreateVertex<int>(1);
-            graph.CreateVertex<int>(2);
-            //graph.CreateEdge()
+            var unweightedUndirectedGraph = new Graph<int>(false, false);
+            unweightedUndirectedGraph.Vertices.Add(unweightedUndirectedGraph.CreateVertex<int>(0));
+            unweightedUndirectedGraph.Vertices.Add(unweightedUndirectedGraph.CreateVertex<int>(1));
+            unweightedUndirectedGraph.Vertices.Add(unweightedUndirectedGraph.CreateVertex<int>(2));
+            unweightedUndirectedGraph.Edges.AddRange(unweightedUndirectedGraph.CreateEdge(unweightedUndirectedGraph.Vertices[0], unweightedUndirectedGraph.Vertices[1]));
+            foreach (var vertex in unweightedUndirectedGraph.Vertices)
+            {
+                Console.WriteLine($"vertex.Value = {vertex.Value}");
+            }
+            foreach (var edge in unweightedUndirectedGraph.Edges)
+            {
+                Console.WriteLine($"edge.Start = {edge.Start.Value} & edge.End = {edge.End.Value}");
+            }
+
+            var weightedUndirectedGraph = new Graph<int>(true, false);
+            weightedUndirectedGraph.Vertices.Add(weightedUndirectedGraph.CreateVertex<int>(0));
+            weightedUndirectedGraph.Vertices.Add(weightedUndirectedGraph.CreateVertex<int>(1));
+            weightedUndirectedGraph.Vertices.Add(weightedUndirectedGraph.CreateVertex<int>(2));
+            unweightedUndirectedGraph.Edges.AddRange(unweightedUndirectedGraph.CreateEdge(unweightedUndirectedGraph.Vertices[0], unweightedUndirectedGraph.Vertices[1]));
+            Console.ReadKey();
         }
     }
 }

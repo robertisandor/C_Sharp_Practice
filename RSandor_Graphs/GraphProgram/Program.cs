@@ -31,12 +31,7 @@ namespace RSandor_Graphs
             {
                 Console.WriteLine($"edge.Start = {edge.Start.Value} & edge.End = {edge.End.Value}");
             }
-
-            var weightedUndirectedGraph = new Graph<int>(true, false);
-            weightedUndirectedGraph.Vertices.Add(weightedUndirectedGraph.CreateVertex<int>(0));
-            weightedUndirectedGraph.Vertices.Add(weightedUndirectedGraph.CreateVertex<int>(1));
-            weightedUndirectedGraph.Vertices.Add(weightedUndirectedGraph.CreateVertex<int>(2));
-            unweightedUndirectedGraph.Edges.AddRange(unweightedUndirectedGraph.CreateEdge(unweightedUndirectedGraph.Vertices[0], unweightedUndirectedGraph.Vertices[1]));
+            
             Console.ReadKey();
         }
     }

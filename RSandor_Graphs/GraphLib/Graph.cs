@@ -14,7 +14,7 @@ using System.Threading.Tasks;
  * */
 namespace GraphLib
 {
-    public class Graph<T>
+    public class Graph<T> where T : struct
     {
         // do I want the user the ability to change IsWeighted whenever?
         // I feel like it should only be changed/set at the very beginning
@@ -47,6 +47,11 @@ namespace GraphLib
 
         public List<Edge<T>> CreateEdge(Vertex<T> firstVertex, Vertex<T> secondVertex, float weight)
         {
+            if (Edges.Find(edge => edge.Start == firstVertex && edge.End == secondVertex) != null)
+            {
+                throw new InvalidOperationException("Can't add an edge that already exists.");
+            }
+
             List<Edge<T>> edgesCreated = new List<Edge<T>>();
             edgesCreated.Add(new Edge<T>(firstVertex, secondVertex, IsWeighted, weight));
             if(!IsDirected)
@@ -58,6 +63,11 @@ namespace GraphLib
 
         public List<Edge<T>> CreateEdge(Vertex<T> firstVertex, Vertex<T> secondVertex)
         {
+            if(Edges.Find(edge => edge.Start == firstVertex && edge.End == secondVertex) != null)
+            {
+                throw new InvalidOperationException("Can't add an edge that already exists.");
+            }
+
             List<Edge<T>> edgesCreated = new List<Edge<T>>();
             edgesCreated.Add(new Edge<T>(firstVertex, secondVertex, IsWeighted));
             if (!IsDirected)
@@ -72,6 +82,37 @@ namespace GraphLib
          * but if I'm creating an undirected graph, I want to return all of the edges I'm creating
          * maybe always returning a list
          * */
+
+        public List<Edge<T>> RemoveEdge(Edge<T> edgeToRemove)
+        {
+            return RemoveEdge(edgeToRemove.Start, edgeToRemove.End);
+        }
+
+        public List<Edge<T>> RemoveEdge(Vertex<T> firstVertex, Vertex<T> secondVertex)
+        {
+            List<Edge<T>> edgesToRemove = new List<Edge<T>>();
+            Edge<T> edgeToRemove = Edges.Find(edge => edge.Start == firstVertex && edge.End == secondVertex);
+
+            if (edgeToRemove != null)
+            {
+                edgesToRemove.Add(edgeToRemove);
+                Edges.Remove(edgesToRemove[0]);
+            }
+           
+            if(!IsDirected)
+            {
+                edgeToRemove = null;
+                edgeToRemove = Edges.Find(edge => edge.Start == secondVertex && edge.End == firstVertex);
+
+                if(edgeToRemove != null)
+                {
+                    edgesToRemove.Add(edgeToRemove);
+                    Edges.Remove(edgesToRemove[1]);
+                }
+            }
+
+            return edgesToRemove;
+        }
 
         public Vertex<T> CreateVertex<T>(T value)
         {

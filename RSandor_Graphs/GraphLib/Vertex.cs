@@ -19,16 +19,10 @@ namespace GraphLib
         /// </summary>
         /// <param name="value">Value of the vertex</param>
         /// <param name="neighbors"></param>
-        //internal Vertex(T value, IEnumerable<Vertex<T>> neighbors = null)
         internal Vertex(T value)
         {
             Value = value;
             Visited = false;
         }
-
-        //internal Vertex(T value, params Vertex<T>[] neighbors) : this(value, (IEnumerable<Vertex<T>>)neighbors)
-        //{
-
-        //}
     }
 }

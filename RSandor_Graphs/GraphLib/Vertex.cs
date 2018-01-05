@@ -9,16 +9,26 @@ namespace GraphLib
     public class Vertex<T> where T : IComparable<T>
     {
         public readonly T Value;
+        public bool Visited { get; set; }
+
+        // is it beneficial to have neighbors for the vertex?
+        // or could I use the edges within the graph to determine the neighbor?
 
         /// <summary>
         /// Vertex constructor
         /// </summary>
         /// <param name="value">Value of the vertex</param>
         /// <param name="neighbors"></param>
-        // internal Vertex(T value, IEnumerable<Vertex<T>> neighbors = null)
+        //internal Vertex(T value, IEnumerable<Vertex<T>> neighbors = null)
         internal Vertex(T value)
         {
             Value = value;
+            Visited = false;
         }
+
+        //internal Vertex(T value, params Vertex<T>[] neighbors) : this(value, (IEnumerable<Vertex<T>>)neighbors)
+        //{
+
+        //}
     }
 }

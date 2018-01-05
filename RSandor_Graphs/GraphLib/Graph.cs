@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace GraphLib
 {
+    // one graph implementation is to have the list of edges within the vertex, NOT the graph
+    // it's supposedly easier to find which vertices a vertex is connected to 
     public class Graph<T> where T : struct, IComparable<T>
     {
         public readonly bool IsWeighted;

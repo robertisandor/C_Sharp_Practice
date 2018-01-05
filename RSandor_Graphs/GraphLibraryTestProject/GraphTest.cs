@@ -42,37 +42,45 @@ namespace GraphLibraryTestProject
             var unweightedUndirectedGraph = new Graph<int>(false, false);
             unweightedUndirectedGraph.Vertices.Add(unweightedUndirectedGraph.CreateVertex(0));
             Assert.AreEqual(0, unweightedUndirectedGraph.Vertices[0].Value);
+            Assert.AreEqual(false, unweightedUndirectedGraph.Vertices[0].Visited);
             Assert.AreEqual(1, unweightedUndirectedGraph.Vertices.Count);
 
             unweightedUndirectedGraph.Vertices.Add(unweightedUndirectedGraph.CreateVertex(1));
             Assert.AreEqual(1, unweightedUndirectedGraph.Vertices[1].Value);
+            Assert.AreEqual(false, unweightedUndirectedGraph.Vertices[1].Visited);
             Assert.AreEqual(2, unweightedUndirectedGraph.Vertices.Count);
 
             var unweightedDirectedGraph = new Graph<int>(false, true);
             unweightedDirectedGraph.Vertices.Add(unweightedDirectedGraph.CreateVertex(0));
             Assert.AreEqual(0, unweightedDirectedGraph.Vertices[0].Value);
+            Assert.AreEqual(false, unweightedDirectedGraph.Vertices[0].Visited);
             Assert.AreEqual(1, unweightedDirectedGraph.Vertices.Count);
 
             unweightedDirectedGraph.Vertices.Add(unweightedDirectedGraph.CreateVertex(1));
             Assert.AreEqual(1, unweightedDirectedGraph.Vertices[1].Value);
+            Assert.AreEqual(false, unweightedDirectedGraph.Vertices[1].Visited);
             Assert.AreEqual(2, unweightedDirectedGraph.Vertices.Count);
 
             var weightedUndirectedGraph = new Graph<int>(true, false);
             weightedUndirectedGraph.Vertices.Add(weightedUndirectedGraph.CreateVertex(0));
             Assert.AreEqual(0, weightedUndirectedGraph.Vertices[0].Value);
+            Assert.AreEqual(false, weightedUndirectedGraph.Vertices[0].Visited);
             Assert.AreEqual(1, weightedUndirectedGraph.Vertices.Count);
 
             weightedUndirectedGraph.Vertices.Add(weightedUndirectedGraph.CreateVertex(1));
             Assert.AreEqual(1, weightedUndirectedGraph.Vertices[1].Value);
+            Assert.AreEqual(false, weightedUndirectedGraph.Vertices[1].Visited);
             Assert.AreEqual(2, weightedUndirectedGraph.Vertices.Count);
 
             var weightedDirectedGraph = new Graph<int>(true, true);
             weightedDirectedGraph.Vertices.Add(weightedDirectedGraph.CreateVertex(0));
             Assert.AreEqual(0, weightedDirectedGraph.Vertices[0].Value);
+            Assert.AreEqual(false, weightedDirectedGraph.Vertices[0].Visited);
             Assert.AreEqual(1, weightedDirectedGraph.Vertices.Count);
 
             weightedDirectedGraph.Vertices.Add(weightedDirectedGraph.CreateVertex(1));
             Assert.AreEqual(1, weightedDirectedGraph.Vertices[1].Value);
+            Assert.AreEqual(false, weightedDirectedGraph.Vertices[0].Visited);
             Assert.AreEqual(2, weightedDirectedGraph.Vertices.Count);
         }
 

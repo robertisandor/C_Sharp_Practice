@@ -8,13 +8,6 @@ namespace GraphLib
 {
     public static class SearchUtility<T> where T : struct, IComparable<T>
     {
-        // TODO: implement Dijkstra Search
-        public static List<Edge<T>> DijkstraSearch(Vertex<T> start, Vertex<T> end)
-        {
-
-            return null;
-        }
-
         // TODO: revise function signature - what should it return? a list or queue?
         public static Queue<Vertex<T>> BFS(Graph<T> graph, Vertex<T> start)
         {
@@ -71,24 +64,26 @@ namespace GraphLib
         }
 
         // TODO: revise function signature
-        public static Queue<Vertex<T>> DFS_PreVisit(Graph<T> graph, Vertex<T> start)
+        public static Queue<Vertex<T>> DFS(Graph<T> graph, Vertex<T> start)
         {
             for (int index = 0; index < graph.Vertices.Count; index++)
             {
                 graph.Vertices[index].Visited = false;
             }
 
-            Queue<Vertex<T>> visitedNodes = new Queue<Vertex<T>>();
+            List<Vertex<T>> visitedNodes = new List<Vertex<T>>();
 
-            DFS_Recursive(graph, start);
-
-            return null;
+            visitedNodes.AddRange(dfs_Recursive(graph, start));
+            var queue = new Queue<Vertex<T>>(visitedNodes);
+            return queue;
         }
 
-        // TODO: fix this function
-        public static Vertex<T> DFS_Recursive(Graph<T> graph, Vertex<T> current)
+        private static List<Vertex<T>> dfs_Recursive(Graph<T> graph, Vertex<T> current)
         {
             current.Visited = true;
+           
+            List<Vertex<T>> visitedNodes = new List<Vertex<T>>();
+            visitedNodes.Add(current);
 
             List<Vertex<T>> neighbors = new List<Vertex<T>>();
             // find the neighbors
@@ -111,11 +106,28 @@ namespace GraphLib
                 {
                     continue;
                 }
-                DFS_Recursive(graph, neighbors[index]);
+                visitedNodes.AddRange(dfs_Recursive(graph, neighbors[index]));
             }
-           
+
+            return visitedNodes;
+        }
+
+        // TODO: implement Dijkstra Search
+        public static List<Edge<T>> DijkstraSearch(Vertex<T> start, Vertex<T> end)
+        {
 
             return null;
+        }
+
+        private static long calculateMinimumDistance(Graph<T> graph)
+        {
+            long min = long.MaxValue;
+            int minimumIndex = 0;
+            for(int index = 0; index < graph.Vertices.Count; index++)
+            {
+
+            }
+            return 0;
         }
     }
 }

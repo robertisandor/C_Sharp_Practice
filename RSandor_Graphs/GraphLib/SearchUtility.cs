@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphLib
 {
@@ -113,21 +110,94 @@ namespace GraphLib
         }
 
         // TODO: implement Dijkstra Search
-        public static List<Edge<T>> DijkstraSearch(Vertex<T> start, Vertex<T> end)
+        public static List<Edge<T>> DijkstraSearch(Graph<T> graph, Vertex<T> start, Vertex<T> end)
         {
+            if (!graph.IsWeighted)
+            {
+                throw new InvalidOperationException("Can't run Dijkstra's algorithm on an unweighted graph.");
+            }
+
+            // could this be combined into a tuple? what would I name it?
+            double[] distancesToNodes = new double[graph.Vertices.Count];
+
+            // indicates whether the indicated vertex is part of the shortest path
+            // or if the shortest distance from the source to that vertex is finalized
+            bool[] shortestPathTreeSet = new bool[graph.Vertices.Count];
+
+            // var tupleExample = (Name: "Robert", Age: 26);
+            // Tuple<int, bool> distancesToNodesAnd
+
+            // is this the right datatype?
+            T[] parents = new T[graph.Vertices.Count];
+
+            // sets the distances to (effectively) infinity and indicates
+            // that the distances of all of the vertices aren't finalized
+            // (since we just started)
+            for(int index = 0; index < graph.Vertices.Count; index++)
+            {
+                // what value would I give to indicate that a given vertex is the root? default?
+                parents[index] = default(T);
+                distancesToNodes[index] = double.MaxValue;
+                shortestPathTreeSet[index] = false;
+            }
+
+            // List<Edge<T>> traveledEdges = new List<Edge<T>>();
+
+            int indexOfStart = graph.Vertices.FindIndex(vertex => vertex.Value.Equals(start.Value));
+            // setting the distance of 0 for the start
+            // ensures that we start the algorithm at the designated start vertex
+            distancesToNodes[indexOfStart] = 0;
+
+            for(int index = 0; index < graph.Vertices.Count - 1; index++)
+            {
+                // could a minheap/priority queue be used rather than the minimum distance function?
+                int minimumDistanceVertexIndex = calculateMinimumDistance(graph, distancesToNodes, shortestPathTreeSet);
+
+                // marks this particular index as processed
+                shortestPathTreeSet[minimumDistanceVertexIndex] = true;
+
+                
+                for(int vertexIndex = 0; vertexIndex < graph.Vertices.Count; vertexIndex++)
+                {
+                    Edge<T> edgeBetweenMinimumAndCurrent = graph.Edges.Find(
+                        edge => edge.Start.Equals(minimumDistanceVertexIndex) && 
+                        edge.End.Equals(vertexIndex));
+
+                    if (!shortestPathTreeSet[vertexIndex] && edgeBetweenMinimumAndCurrent != null &&
+                        distancesToNodes[indexOfStart] != double.MaxValue &&
+                        distancesToNodes[minimumDistanceVertexIndex] + edgeBetweenMinimumAndCurrent.Weight < distancesToNodes[vertexIndex])
+                    {
+                        parents[vertexIndex] = graph.Vertices[minimumDistanceVertexIndex].Value;
+                        distancesToNodes[vertexIndex] = distancesToNodes[indexOfStart] + edgeBetweenMinimumAndCurrent.Weight;
+                    }
+                }
+            }
+
+            
 
             return null;
         }
 
-        private static long calculateMinimumDistance(Graph<T> graph)
+        private static int calculateMinimumDistance(Graph<T> graph, double[] distances, bool[] shortestPathTreeSet)
         {
-            long min = long.MaxValue;
+            double minimumDistance = double.MaxValue;
             int minimumIndex = 0;
+
             for(int index = 0; index < graph.Vertices.Count; index++)
             {
-
+                if(!shortestPathTreeSet[index] && distances[index] <= minimumDistance)
+                {
+                    minimumDistance = distances[index];
+                    minimumIndex = index;
+                }
             }
-            return 0;
+
+            return minimumIndex;
+        }
+
+        private List<Vertex<T>> getPath(T[] parents, Vertex<T> endPoint)
+        {
+            
         }
     }
 }

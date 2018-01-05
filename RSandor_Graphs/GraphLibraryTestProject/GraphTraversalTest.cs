@@ -61,7 +61,20 @@ namespace GraphLibraryTestProject
         [TestMethod]
         public void DijkstraSearchTest()
         {
+            Graph<int> graph = new Graph<int>(true, false);
+            graph.Vertices.AddRange(new Vertex<int>[]{
+                graph.CreateVertex(1), graph.CreateVertex(2), graph.CreateVertex(3),
+                graph.CreateVertex(4), graph.CreateVertex(5), graph.CreateVertex(6)
+            });
 
+            graph.Edges.AddRange(graph.CreateEdge(1, 3, 5.0f));
+            graph.Edges.AddRange(graph.CreateEdge(1, 2, 10.0f));
+            graph.Edges.AddRange(graph.CreateEdge(3, 4, 7.0f));
+            graph.Edges.AddRange(graph.CreateEdge(3, 5, 3.0f));
+            graph.Edges.AddRange(graph.CreateEdge(5, 6, 6.0f));
+
+            var searchPath = SearchUtility<int>.DijkstraSearch(graph, graph.Vertices[0], graph.Vertices[5]);
+            Assert.AreEqual(4, searchPath.Count);
         }
     }
 }

@@ -29,6 +29,13 @@ namespace GraphLib
             Edges = new List<Edge<T>>();
         }
 
+        public List<Edge<T>> CreateEdge(T firstVertexValue, T secondVertexValue, float weight)
+        {
+            Vertex<T> firstVertex = Vertices.Find(vertex => vertex.Value.Equals(firstVertexValue));
+            Vertex<T> secondVertex = Vertices.Find(vertex => vertex.Value.Equals(secondVertexValue));
+            return CreateEdge(firstVertex, secondVertex, weight);
+        }
+
         /// <summary>
         /// Creates a weighted edge
         /// </summary>
@@ -56,6 +63,13 @@ namespace GraphLib
                 edgesCreated.Add(new Edge<T>(secondVertex, firstVertex, IsWeighted, weight));
             }
             return edgesCreated;
+        }
+
+        public List<Edge<T>> CreateEdge(T firstVertexValue, T secondVertexValue)
+        {
+            Vertex<T> firstVertex = Vertices.Find(vertex => vertex.Value.Equals(firstVertexValue));
+            Vertex<T> secondVertex = Vertices.Find(vertex => vertex.Value.Equals(secondVertexValue));
+            return CreateEdge(firstVertex, secondVertex);
         }
 
         /// <summary>

@@ -14,7 +14,6 @@ namespace GraphLib
         public readonly bool IsDirected;
 
         public List<Vertex<T>> Vertices;
-        public List<Edge<T>> Edges;
 
         /// <summary>
         /// Graph constructor
@@ -26,7 +25,6 @@ namespace GraphLib
             IsWeighted = isWeighted;
             IsDirected = isDirected;
             Vertices = new List<Vertex<T>>();
-            Edges = new List<Edge<T>>();
         }
 
         /// <summary>
@@ -38,24 +36,24 @@ namespace GraphLib
         /// <returns>A list of the edge(s) created</returns>
         public List<Edge<T>> CreateEdge(Vertex<T> firstVertex, Vertex<T> secondVertex, float weight)
         {
-            if (Edges.Find(edge => edge.Start == firstVertex && edge.End == secondVertex) != null)
-            {
-                throw new InvalidOperationException("Can't add an edge that already exists. Multigraphs aren't allowed.");
-            }
+            //if (Edges.Find(edge => edge.Start == firstVertex && edge.End == secondVertex) != null)
+            //{
+            //    throw new InvalidOperationException("Can't add an edge that already exists. Multigraphs aren't allowed.");
+            //}
 
-            if(Vertices.Find(vertex => vertex.Value.Equals(firstVertex.Value)) == null ||
-                Vertices.Find(vertex => vertex.Value.Equals(secondVertex.Value)) == null)
-            {
-                throw new InvalidOperationException("Can't add an edge to vertices that don't exist in the graph.");
-            }
+            //if(Vertices.Find(vertex => vertex.Value.Equals(firstVertex.Value)) == null ||
+            //    Vertices.Find(vertex => vertex.Value.Equals(secondVertex.Value)) == null)
+            //{
+            //    throw new InvalidOperationException("Can't add an edge to vertices that don't exist in the graph.");
+            //}
 
-            List<Edge<T>> edgesCreated = new List<Edge<T>>();
-            edgesCreated.Add(new Edge<T>(firstVertex, secondVertex, IsWeighted, weight));
-            if(!IsDirected)
-            {
-                edgesCreated.Add(new Edge<T>(secondVertex, firstVertex, IsWeighted, weight));
-            }
-            return edgesCreated;
+            //List<Edge<T>> edgesCreated = new List<Edge<T>>();
+            //edgesCreated.Add(new Edge<T>(firstVertex, secondVertex, IsWeighted, weight));
+            //if(!IsDirected)
+            //{
+            //    edgesCreated.Add(new Edge<T>(secondVertex, firstVertex, IsWeighted, weight));
+            //}
+            //return edgesCreated;
         }
 
         /// <summary>
@@ -66,24 +64,24 @@ namespace GraphLib
         /// <returns>A list of the edge(s) created</returns>
         public List<Edge<T>> CreateEdge(Vertex<T> firstVertex, Vertex<T> secondVertex)
         {
-            if(Edges.Find(edge => edge.Start == firstVertex && edge.End == secondVertex) != null)
-            {
-                throw new InvalidOperationException($"Can't add an edge starting at vertex {firstVertex.Value} and ending at {secondVertex.Value}. Multigraphs aren't allowed.");
-            }
+            //if(Edges.Find(edge => edge.Start == firstVertex && edge.End == secondVertex) != null)
+            //{
+            //    throw new InvalidOperationException($"Can't add an edge starting at vertex {firstVertex.Value} and ending at {secondVertex.Value}. Multigraphs aren't allowed.");
+            //}
             
-            if (Vertices.Find(vertex => vertex.Value.Equals(firstVertex.Value)) == null ||
-                Vertices.Find(vertex => vertex.Value.Equals(secondVertex.Value)) == null)
-            {
-                throw new InvalidOperationException("Can't add an edge to vertices that don't exist in the graph.");
-            }
+            //if (Vertices.Find(vertex => vertex.Value.Equals(firstVertex.Value)) == null ||
+            //    Vertices.Find(vertex => vertex.Value.Equals(secondVertex.Value)) == null)
+            //{
+            //    throw new InvalidOperationException("Can't add an edge to vertices that don't exist in the graph.");
+            //}
 
-            List<Edge<T>> edgesCreated = new List<Edge<T>>();
-            edgesCreated.Add(new Edge<T>(firstVertex, secondVertex, IsWeighted));
-            if (!IsDirected)
-            {
-                edgesCreated.Add(new Edge<T>(secondVertex, firstVertex, IsWeighted));
-            }
-            return edgesCreated;
+            //List<Edge<T>> edgesCreated = new List<Edge<T>>();
+            //edgesCreated.Add(new Edge<T>(firstVertex, secondVertex, IsWeighted));
+            //if (!IsDirected)
+            //{
+            //    edgesCreated.Add(new Edge<T>(secondVertex, firstVertex, IsWeighted));
+            //}
+            //return edgesCreated;
         }
 
         /// <summary>
@@ -93,7 +91,7 @@ namespace GraphLib
         /// <returns></returns>
         public bool RemoveEdge(Edge<T> edgeToRemove)
         {
-            return RemoveEdge(edgeToRemove.Start, edgeToRemove.End);
+            // return RemoveEdge(edgeToRemove.Start, edgeToRemove.End);
         }
 
         /// <summary>
@@ -104,36 +102,36 @@ namespace GraphLib
         /// <returns></returns>
         public bool RemoveEdge(Vertex<T> firstVertex, Vertex<T> secondVertex)
         {
-            Edge<T> edgeToRemove = Edges.Find(edge => edge.Start == firstVertex && edge.End == secondVertex);
+            //Edge<T> edgeToRemove = Edges.Find(edge => edge.Start == firstVertex && edge.End == secondVertex);
 
-            if (edgeToRemove != null)
-            {   
-                if (!IsDirected)
-                {
-                    Edge<T> secondEdgeToRemove = null;
-                    secondEdgeToRemove = Edges.Find(edge => edge.Start == secondVertex && edge.End == firstVertex);
+            //if (edgeToRemove != null)
+            //{   
+            //    if (!IsDirected)
+            //    {
+            //        Edge<T> secondEdgeToRemove = null;
+            //        secondEdgeToRemove = Edges.Find(edge => edge.Start == secondVertex && edge.End == firstVertex);
 
-                    if (edgeToRemove != null)
-                    {
-                        Edges.Remove(edgeToRemove);
-                        Edges.Remove(secondEdgeToRemove);
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException("The second edge of the undirected graph could not be found. No edges were removed.");
-                    }
-                }
-                else
-                {
-                    Edges.Remove(edgeToRemove);
-                }
-            }
-            else
-            {
-                return false;
-            }
+            //        if (edgeToRemove != null)
+            //        {
+            //            Edges.Remove(edgeToRemove);
+            //            Edges.Remove(secondEdgeToRemove);
+            //        }
+            //        else
+            //        {
+            //            throw new InvalidOperationException("The second edge of the undirected graph could not be found. No edges were removed.");
+            //        }
+            //    }
+            //    else
+            //    {
+            //        Edges.Remove(edgeToRemove);
+            //    }
+            //}
+            //else
+            //{
+            //    return false;
+            //}
            
-            return true;
+            //return true;
         }
 
         /// <summary>
@@ -171,13 +169,13 @@ namespace GraphLib
             Vertex<T> vertexToBeRemoved = Vertices.Find(vertex => vertex.Value.Equals(vertexToRemove.Value));
             if(vertexToBeRemoved != null)
             {
-                for (int index = 0; index < Edges.Count; index++)
-                {
-                    if (Edges[index].Start.Equals(vertexToRemove) || Edges[index].End.Equals(vertexToRemove))
-                    {
-                        Edges.RemoveAt(index);
-                    }
-                }
+                //for (int index = 0; index < Edges.Count; index++)
+                //{
+                //    if (Edges[index].Start.Equals(vertexToRemove) || Edges[index].End.Equals(vertexToRemove))
+                //    {
+                //        Edges.RemoveAt(index);
+                //    }
+                //}
 
                 Vertices.Remove(vertexToBeRemoved);
             }

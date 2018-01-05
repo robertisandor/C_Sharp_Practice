@@ -17,7 +17,7 @@ namespace GraphLib
     public class Edge<T> where T : IComparable<T>
     {
         public Vertex<T> Start;
-        public  Vertex<T> End;
+        public Vertex<T> End;
 
         public readonly bool IsWeighted;
 

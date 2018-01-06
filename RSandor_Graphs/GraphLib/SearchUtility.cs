@@ -110,7 +110,7 @@ namespace GraphLib
         }
 
         // TODO: implement Dijkstra Search
-        public static List<Vertex<T>> DijkstraSearch(Graph<T> graph, Vertex<T> start, Vertex<T> end)
+        public static Queue<Vertex<T>> DijkstraSearch(Graph<T> graph, Vertex<T> start, Vertex<T> end)
         {
             if (!graph.IsWeighted)
             {
@@ -134,14 +134,13 @@ namespace GraphLib
                 parents.Add(vertex.Value);
             }
 
-            parents[0] = default(T);
             // sets the distances to (effectively) infinity and indicates
             // that the distances of all of the vertices aren't finalized
             // (since we just started)
             for (int index = 0; index < graph.Vertices.Count; index++)
             {
                 // what value would I give to indicate that a given vertex is the root? default?
-               
+                parents[index] = default(T);
                 distancesToNodes[index] = double.MaxValue;
                 shortestPathTreeSet[index] = false;
             }
@@ -151,6 +150,7 @@ namespace GraphLib
             int indexOfStart = graph.Vertices.FindIndex(vertex => vertex.Value.Equals(start.Value));
             // setting the distance of 0 for the start
             // ensures that we start the algorithm at the designated start vertex
+            parents[indexOfStart] = default(T);
             distancesToNodes[indexOfStart] = 0;
 
             for(int index = 0; index < graph.Vertices.Count - 1; index++)
@@ -165,8 +165,8 @@ namespace GraphLib
                 for(int vertexIndex = 0; vertexIndex < graph.Vertices.Count; vertexIndex++)
                 {
                     Edge<T> edgeBetweenMinimumAndCurrent = graph.Edges.Find(
-                        edge => edge.Start.Equals(parents[minimumDistanceVertexIndex]) && 
-                        edge.End.Equals(parents[vertexIndex]));
+                        edge => edge.Start.Value.Equals(graph.Vertices[minimumDistanceVertexIndex].Value) && 
+                        edge.End.Value.Equals(graph.Vertices[vertexIndex].Value));
 
                     if (!shortestPathTreeSet[vertexIndex] && edgeBetweenMinimumAndCurrent != null &&
                         distancesToNodes[indexOfStart] != double.MaxValue &&
@@ -179,8 +179,8 @@ namespace GraphLib
             }
 
             traveledVertices.AddRange(getPath(graph, parents, end));
-
-            return traveledVertices;
+            Queue<Vertex<T>> shortestPath = new Queue<Vertex<T>>(traveledVertices);
+            return shortestPath;
         }
 
         private static int calculateMinimumDistance(Graph<T> graph, double[] distances, bool[] shortestPathTreeSet)
@@ -203,18 +203,24 @@ namespace GraphLib
         private static List<Vertex<T>> getPath(Graph<T> graph, List<T> parents, Vertex<T> current)
         {
             List<Vertex<T>> path = new List<Vertex<T>>();
-            int indexOfCurrent = parents.FindIndex(value => value.Equals(current.Value));
+            int indexOfCurrent = graph.Vertices.FindIndex(vertex => vertex.Value.Equals(current.Value));
 
             if(parents[indexOfCurrent].Equals(default(T)))
             {
-                Vertex<T> startVertex = graph.Vertices.Find(vertex => vertex.Value.Equals(parents[indexOfCurrent])); 
+                Vertex<T> startVertex = graph.Vertices.Find(vertex => vertex.Value.Equals(current.Value)); 
                 path.Add(startVertex);
                 return path;
             }
 
             Vertex<T> parentOfCurrent = graph.Vertices.Find(vertex => vertex.Value.Equals(parents[indexOfCurrent]));
             path.AddRange(getPath(graph, parents, parentOfCurrent));
+            path.Add(current);
             return path;
+        }
+
+        public static Queue<Vertex<T>> AStarSearch()
+        {
+            return null;
         }
     }
 }

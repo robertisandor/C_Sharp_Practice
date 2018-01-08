@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 namespace GraphLib
 {
     #region Abstract heap class
-    public abstract class Heap<T> 
+    public abstract class Heap<T> : IEnumerable<T>
     {
         #region Class variables
         private const int initialCapacity = 0;
@@ -21,12 +22,49 @@ namespace GraphLib
         #region Class properties
         public int Count { get; private set; }
         public int Capacity { get; private set; }
-        #endregion 
 
-        public Heap()
+        protected Comparer<T> Comparer { get; private set; }
+        #endregion
+
+        #region Heap constructors
+        protected Heap() : this(Comparer<T>.Default)
         {
-
         }
+
+        protected Heap(Comparer<T> comparer) : this(Enumerable.Empty<T>(), comparer)
+        {
+        }
+
+        protected Heap(IEnumerable<T> collection) : this(collection, Comparer<T>.Default)
+        {
+        }
+
+        protected Heap(IEnumerable<T> collection, Comparer<T> comparer)
+        {
+            if(collection == null)
+            {
+                throw new ArgumentNullException("Collection is and should not be null.");
+            }
+
+            Comparer = comparer ?? throw new ArgumentNullException("Comparer is and shoult not be null.");
+
+            foreach(var item in collection)
+            {
+                if(Count == Capacity)
+                {
+                    Grow();
+                }
+
+                heap[tail] = item;
+                tail++;
+            }
+
+            for(int index = parent(tail - 1); index >= 0; index--)
+            {
+                SiftUp(index);
+            }
+        }
+        #endregion 
 
         public void Add(T item)
         {
@@ -36,13 +74,25 @@ namespace GraphLib
             }
             heap[tail] = item;
             tail++;
-            // what exactly does this do?
-            Heapify(tail - 1);
+           
+            siftUp(tail - 1);
         }
 
-        private void Heapify(int index)
+        private void siftUp(int index)
         {
             throw new NotImplementedException();
+        }
+
+        private void siftDown(int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void swap(int firstIndex, int secondIndex)
+        {
+            T tempHolder = heap[firstIndex];
+            heap[firstIndex] = heap[secondIndex];
+            heap[secondIndex] = tempHolder;
         }
 
         /// <summary>
@@ -86,6 +136,18 @@ namespace GraphLib
             heap = newHeap;
             Capacity = newCapacity;
         }
+
+        #region IEnumerable interface implementation
+        public IEnumerator<T> GetEnumerator()
+        {
+            return heap.Take(Count).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+        #endregion 
     }
 
     #endregion

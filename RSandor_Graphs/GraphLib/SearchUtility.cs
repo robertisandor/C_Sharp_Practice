@@ -5,16 +5,15 @@ namespace GraphLib
 {
     public static class SearchUtility<T> where T : struct, IComparable<T>
     {
-        // TODO: revise function signature - what should it return? a list or queue?
+        #region Breadth-First Search method
+
         public static Queue<Vertex<T>> BFS(Graph<T> graph, Vertex<T> start)
         {
-            // I should probably ensure that the entire list isn't visited
             for(int index = 0; index < graph.Vertices.Count; index++)
             {
                 graph.Vertices[index].Visited = false;
             }
 
-            // do I need a queue here or a list? most likely queue
             Queue<Vertex<T>> nodesToVisit = new Queue<Vertex<T>>();
             Queue<Vertex<T>> traversedPath = new Queue<Vertex<T>>();
             int indexOfStart = graph.Vertices.FindIndex(vertex => vertex.Value.Equals(start.Value));
@@ -60,7 +59,10 @@ namespace GraphLib
             return traversedPath;
         }
 
-        // TODO: revise function signature
+        #endregion
+
+        #region Depth-First Search methods
+
         public static Queue<Vertex<T>> DFS(Graph<T> graph, Vertex<T> start)
         {
             for (int index = 0; index < graph.Vertices.Count; index++)
@@ -72,16 +74,6 @@ namespace GraphLib
 
             visitedNodes.AddRange(dfs_Recursive(graph, start));
             var queue = new Queue<Vertex<T>>(visitedNodes);
-            return queue;
-        }
-
-        public static Queue<Vertex<T>> DFS_Iterative(Graph<T> graph, Vertex<T> start)
-        {
-            for(int index = 0; index < graph.Vertices.Count; index++)
-            {
-                graph.Vertices[index].Visited = false;
-            }
-            var queue = new Queue<Vertex<T>>();
             return queue;
         }
 
@@ -119,7 +111,19 @@ namespace GraphLib
             return visitedNodes;
         }
 
-        // TODO: implement Dijkstra Search
+        // TODO: finish this function
+        public static Queue<Vertex<T>> DFS_Iterative(Graph<T> graph, Vertex<T> start)
+        {
+            for (int index = 0; index < graph.Vertices.Count; index++)
+            {
+                graph.Vertices[index].Visited = false;
+            }
+            var queue = new Queue<Vertex<T>>();
+            return queue;
+        }
+        #endregion
+
+        #region Dijkstra search method & helper functions
         public static Queue<Vertex<T>> DijkstraSearch(Graph<T> graph, Vertex<T> start, Vertex<T> end)
         {
             if (!graph.IsWeighted)
@@ -228,6 +232,9 @@ namespace GraphLib
             return path;
         }
 
+        #endregion
+
+        #region A* Search method & heuristics
         // use a heap
         // TODO: make a custom heap class
         // known, estimated, total
@@ -279,5 +286,7 @@ namespace GraphLib
         {
             return Math.Sqrt(Math.Pow((double)(start.x - end.x), 2.0) + Math.Pow((double)(start.y - end.y), 2.0));
         }
+
+        #endregion 
     }
 }

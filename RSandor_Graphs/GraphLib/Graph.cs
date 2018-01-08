@@ -10,12 +10,17 @@ namespace GraphLib
     // it's supposedly easier to find which vertices a vertex is connected to 
     public class Graph<T> where T : struct, IComparable<T>
     {
+        #region Class Variables
+
         public readonly bool IsWeighted;
         public readonly bool IsDirected;
 
         public List<Vertex<T>> Vertices;
         public List<Edge<T>> Edges;
 
+        #endregion
+
+        #region Constructor
         /// <summary>
         /// Graph constructor
         /// </summary>
@@ -28,7 +33,17 @@ namespace GraphLib
             Vertices = new List<Vertex<T>>();
             Edges = new List<Edge<T>>();
         }
+        #endregion
 
+        #region Edge creation methods
+
+        /// <summary>
+        /// Creates a weighted edge given vertex values and a weight
+        /// </summary>
+        /// <param name="firstVertexValue">Value of the first vertex of the edge</param>
+        /// <param name="secondVertexValue">Value of the second vertex of the edge</param>
+        /// <param name="weight">Weight of the edge</param>
+        /// <returns>List of edge(s) created depending upon whether graph is directed or undirected</returns>
         public List<Edge<T>> CreateEdge(T firstVertexValue, T secondVertexValue, float weight)
         {
             Vertex<T> firstVertex = Vertices.Find(vertex => vertex.Value.Equals(firstVertexValue));
@@ -100,6 +115,10 @@ namespace GraphLib
             return edgesCreated;
         }
 
+        #endregion
+    
+        #region Edge removal methods
+
         /// <summary>
         /// Remove an edge from the graph
         /// </summary>
@@ -149,6 +168,10 @@ namespace GraphLib
            
             return true;
         }
+
+        #endregion
+
+        #region Vertex creation & removal methods
 
         /// <summary>
         /// Create a vertex with the given value if it doesn't already exist in the graph
@@ -202,5 +225,7 @@ namespace GraphLib
             
             return true;
         }
+    
+        #endregion
     }
 }

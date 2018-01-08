@@ -16,15 +16,35 @@ namespace GraphLib
 {
     public class Edge<T> where T : IComparable<T>
     {
+        #region Class variables
+
         public Vertex<T> Start;
         public Vertex<T> End;
 
         public readonly bool IsWeighted;
 
-        // have an internal constructor so that an individual can't create an Edge by itself
-        // (creating an Edge by itself doesn't make sense because it isn't used except in the context of a graph)
-        // there is a CreateEdge function within the Graph class that the user can use to 
+        #endregion
 
+        #region Class properties
+
+        float weight;
+        public float Weight
+        {
+            get => weight;
+            set
+            {
+                if (!IsWeighted)
+                {
+                    throw new InvalidOperationException("Cannot change weight in an unweighted graph");
+                }
+
+                weight = value;
+            }
+        }
+    
+        #endregion
+
+        #region Edge constructors
         /// <summary>
         /// Weighted edge constructor
         /// </summary>
@@ -69,19 +89,6 @@ namespace GraphLib
             End = end;
         }
 
-        float weight;
-        public float Weight
-        {
-            get => weight;
-            set
-            {
-                if (!IsWeighted)
-                {
-                    throw new InvalidOperationException("Cannot change weight in an unweighted graph");
-                }
-
-                weight = value;
-            }
-        }
+        #endregion
     }
 }

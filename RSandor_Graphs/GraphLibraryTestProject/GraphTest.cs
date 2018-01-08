@@ -8,6 +8,8 @@ namespace GraphLibraryTestProject
     [TestClass]
     public class GraphTest
     {
+        #region Construction tests
+
         [TestMethod]
         public void GraphConstructorTest()
         {
@@ -85,22 +87,6 @@ namespace GraphLibraryTestProject
         }
 
         [TestMethod]
-        public void CreateVertexThatAlreadyExists()
-        {
-            var unweightedUndirectedGraph = new Graph<int>(false, false);
-            unweightedUndirectedGraph.Vertices.Add(unweightedUndirectedGraph.CreateVertex(0));
-            try
-            {
-                unweightedUndirectedGraph.Vertices.Add(unweightedUndirectedGraph.CreateVertex(0));
-                Console.WriteLine("A vertex with a duplicate value was added.");
-            }
-            catch(InvalidOperationException exception)
-            {
-
-            }
-        }
-
-        [TestMethod]
         public void CreateEdgeTest()
         {
             var unweightedUndirectedGraph = new Graph<int>(false, false);
@@ -146,6 +132,30 @@ namespace GraphLibraryTestProject
 
             Assert.AreEqual(2, weightedUndirectedGraph.Edges.Count);
         }
+
+        #endregion
+
+        #region Vertex exception test
+
+        [TestMethod]
+        public void CreateVertexThatAlreadyExists()
+        {
+            var unweightedUndirectedGraph = new Graph<int>(false, false);
+            unweightedUndirectedGraph.Vertices.Add(unweightedUndirectedGraph.CreateVertex(0));
+            try
+            {
+                unweightedUndirectedGraph.Vertices.Add(unweightedUndirectedGraph.CreateVertex(0));
+                Console.WriteLine("A vertex with a duplicate value was added.");
+            }
+            catch (InvalidOperationException exception)
+            {
+
+            }
+        }
+
+        #endregion
+
+        #region Edge exception tests
 
         [TestMethod]
         public void CreateEdgeWhichAlreadyExists()
@@ -238,6 +248,10 @@ namespace GraphLibraryTestProject
             }
         }
 
+        #endregion
+
+        #region Edge removal tests
+
         [TestMethod]
         public void RemoveEdgeTest()
         {
@@ -282,5 +296,7 @@ namespace GraphLibraryTestProject
             Assert.AreEqual(false, resultOfRemoval);
             Assert.AreEqual(2, unweightedUndirectedGraph.Edges.Count);
         }
+
+        #endregion
     }
 }

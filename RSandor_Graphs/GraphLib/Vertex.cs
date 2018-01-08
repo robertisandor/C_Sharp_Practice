@@ -8,12 +8,14 @@ namespace GraphLib
 {
     public class Vertex<T> where T : IComparable<T>
     {
+        #region Class variables
+
         public readonly T Value;
         public bool Visited { get; set; }
 
-        // is it beneficial to have neighbors for the vertex?
-        // or could I use the edges within the graph to determine the neighbor?
+        #endregion
 
+        #region Vertex constructor
         /// <summary>
         /// Vertex constructor
         /// </summary>
@@ -24,5 +26,6 @@ namespace GraphLib
             Value = value;
             Visited = false;
         }
+        #endregion 
     }
 }

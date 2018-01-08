@@ -75,6 +75,16 @@ namespace GraphLib
             return queue;
         }
 
+        public static Queue<Vertex<T>> DFS_Iterative(Graph<T> graph, Vertex<T> start)
+        {
+            for(int index = 0; index < graph.Vertices.Count; index++)
+            {
+                graph.Vertices[index].Visited = false;
+            }
+            var queue = new Queue<Vertex<T>>();
+            return queue;
+        }
+
         private static List<Vertex<T>> dfs_Recursive(Graph<T> graph, Vertex<T> current)
         {
             current.Visited = true;
@@ -218,9 +228,33 @@ namespace GraphLib
             return path;
         }
 
-        public static Queue<Vertex<T>> AStarSearch()
+        // use a heap
+        // TODO: make a custom heap class
+        // known, estimated, total
+        // minheap based on total distance
+        // estimated based off of heuristic
+        // assumes coordinate plane
+        // Manhattan, Euclidean, diagonal, octile, Chebyshev
+        // use delegate to determine which heuristic to use
+        // draw on bitmap
+        // pacman, LoL
+        // TODO: fix and finish this function
+        public static Queue<Vertex<T>> AStarSearch(Graph<int> graph)
         {
+
             return null;
+        }
+
+        // TODO: fix and finish this function
+        public static T CalculateManhattanDistance(T start, T end)
+        {
+            return default(T);
+        }
+
+        // TODO: fix and finish this function
+        public static T CalculateEuclideanDistance(T start, T end)
+        {
+            return default(T);
         }
     }
 }

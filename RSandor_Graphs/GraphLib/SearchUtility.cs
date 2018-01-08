@@ -239,22 +239,22 @@ namespace GraphLib
         // draw on bitmap
         // pacman, LoL
         // TODO: fix and finish this function
-        public static Queue<Vertex<T>> AStarSearch(Graph<int> graph)
+        public static Queue<Vertex<T>> AStarSearch(Graph<double> graph, Func<(double, double), (double, double), double> heuristic)
         {
 
             return null;
         }
 
         // TODO: fix and finish this function
-        public static T CalculateManhattanDistance(T start, T end)
+        public static double CalculateManhattanDistance((double x, double y) start, (double x, double y) end)
         {
-            return default(T);
+            return Math.Abs(start.x - end.x) + Math.Abs(start.y - end.y);
         }
 
         // TODO: fix and finish this function
-        public static T CalculateEuclideanDistance(T start, T end)
+        public static double CalculateEuclideanDistance((double x, double y) start, (double x, double y) end)
         {
-            return default(T);
+            return Math.Sqrt(Math.Pow((double)(start.x - end.x), 2.0) + Math.Pow((double)(start.y - end.y), 2.0));
         }
     }
 }

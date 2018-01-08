@@ -241,7 +241,12 @@ namespace GraphLib
         // TODO: fix and finish this function
         public static Queue<Vertex<T>> AStarSearch(Graph<double> graph, Func<(double, double), (double, double), double> heuristic)
         {
+            
+            return null;
+        }
 
+        public static Queue<Vertex<T>> AStarSearch(Graph<T> graph, Func<(T,T), (T,T), T> heuristic)
+        {
             return null;
         }
 
@@ -249,6 +254,24 @@ namespace GraphLib
         public static double CalculateManhattanDistance((double x, double y) start, (double x, double y) end)
         {
             return Math.Abs(start.x - end.x) + Math.Abs(start.y - end.y);
+        }
+
+        // created alternative version using value tuples and dynamic types
+        // TODO: check how "good" this is - unit tests?
+        public static (T, bool) CalculateManhattanDistance((T x, T y) start, (T x, T y) end)
+        {
+            dynamic firstNumeric = (dynamic)start;
+            dynamic secondNumeric = (dynamic)end;
+            dynamic returnValue;
+            try
+            {
+                returnValue = (firstNumeric.x - secondNumeric.x) + (firstNumeric.y - secondNumeric.y);
+                return (returnValue, true);
+            }
+            catch
+            {
+                return (default(T), false);
+            }
         }
 
         // TODO: fix and finish this function

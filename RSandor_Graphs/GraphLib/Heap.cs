@@ -71,7 +71,7 @@ namespace GraphLib
 
             for(int index = parent(tail - 1); index >= 0; index--)
             {
-                siftUp(index);
+                siftDown(index);
             }
         }
         #endregion 

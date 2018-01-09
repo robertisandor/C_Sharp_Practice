@@ -20,7 +20,7 @@ namespace GraphLib
         #endregion
 
         #region Class properties
-        public int Count { get; private set; }
+        public int Count { get { return tail; } }
         public int Capacity { get; private set; }
 
         protected Comparer<T> Comparer { get; private set; }
@@ -71,7 +71,7 @@ namespace GraphLib
 
             for(int index = parent(tail - 1); index >= 0; index--)
             {
-                SiftUp(index);
+                siftUp(index);
             }
         }
         #endregion 

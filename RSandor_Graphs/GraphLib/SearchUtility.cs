@@ -3,6 +3,23 @@ using System.Collections.Generic;
 
 namespace GraphLib
 {
+    public class Cell
+    {
+        public double F { get; set; }
+        public double G { get; set; }
+
+        public readonly double X;
+        public readonly double Y;
+        public readonly bool Blocked;
+
+        public Cell(Vertex<(double x, double y)> node, bool blocked)
+        {
+            X = node.Value.x;
+            Y = node.Value.y;
+            Blocked = blocked;
+        }
+    }
+
     public static class SearchUtility<T> where T : struct, IComparable<T>
     {
         #region Breadth-First Search method
@@ -249,6 +266,9 @@ namespace GraphLib
         // TODO: fix and finish this function
         public static Queue<Vertex<(double, double)>> AStarSearch(Graph<(double, double)> graph, Vertex<(double, double)> start, Vertex<(double, double)> end, Func<(double, double), (double, double), double> heuristic)
         {
+            // would it be easier to add stuff to the vertex class
+            // or create the cell class and pass an array/list to the A* search function?
+
             if(graph.Vertices.Find(vertex => vertex.Value.Equals(start.Value)) == null)
             {
                 throw new InvalidOperationException("Start point isn't valid.");
@@ -261,10 +281,12 @@ namespace GraphLib
 
             if(start.Value.Equals(end.Value))
             {
-                throw new InvalidOperationException("We are already at the destination.");
+                throw new InvalidOperationException("The start is also the destination.");
             }
 
+
             // check if it's blocked here
+            // how do we indicate if a node is blocked or not?
             /*
             if()
             {
@@ -273,7 +295,18 @@ namespace GraphLib
             */
 
             // create a closed list - how large should it be?
+            // create a 2d array to hold details of each cell in the map
+            // do I need a separate class for that?
+            // set the h (heuristic), g (cost to get to a given node/goal), 
+            // and f (sum of g and h) to the max value
 
+            // initialize the starting node with f, g, and h values of 0
+
+            // create an open list that has the cell location and f cost associated with it
+            // insert the starting node into the open list
+            // would the open list be a heap?
+
+            // check all 8 directions? <- necessary?
             return null;
         }
 

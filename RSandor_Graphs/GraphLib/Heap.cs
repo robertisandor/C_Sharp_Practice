@@ -26,6 +26,10 @@ namespace GraphLib
         protected Comparer<T> Comparer { get; private set; }
         #endregion
 
+        #region Abstract method
+        protected abstract bool Dominates(T x, T y);
+        #endregion 
+
         #region Heap constructors
         protected Heap() : this(Comparer<T>.Default)
         {
@@ -80,12 +84,46 @@ namespace GraphLib
 
         private void siftUp(int index)
         {
-            throw new NotImplementedException();
+            if(index == 0 || Dominates(heap[parent(index)], heap[index]))
+            {
+                return;
+            }
+
+            swap(index, parent(index));
+            siftUp(parent(index));
         }
 
         private void siftDown(int index)
         {
-            throw new NotImplementedException();
+            int dominatingNode = Dominating(index);
+            if(dominatingNode == index)
+            {
+                return;
+            }
+            swap(index, dominatingNode);
+            siftDown(dominatingNode);
+        }
+
+        private int Dominating(int index)
+        {
+            int dominatingNode = index;
+
+            dominatingNode = GetDominating(leftChild(index), dominatingNode);
+            dominatingNode = GetDominating(rightChild(index), dominatingNode);
+
+            return dominatingNode;
+        }
+
+        private int GetDominating(int newNode, int dominatingNode)
+        {
+            if(newNode < tail && !Dominates(heap[dominatingNode], heap[newNode]))
+            {
+                return newNode;
+            }
+            else
+            {
+                return dominatingNode;
+            }
         }
 
         private void swap(int firstIndex, int secondIndex)

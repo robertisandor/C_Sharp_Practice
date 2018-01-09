@@ -245,10 +245,35 @@ namespace GraphLib
         // use delegate to determine which heuristic to use
         // draw on bitmap
         // pacman, LoL
+        // undirected algorithm
         // TODO: fix and finish this function
-        public static Queue<Vertex<T>> AStarSearch(Graph<double> graph, Func<(double, double), (double, double), double> heuristic)
+        public static Queue<Vertex<(double, double)>> AStarSearch(Graph<(double, double)> graph, Vertex<(double, double)> start, Vertex<(double, double)> end, Func<(double, double), (double, double), double> heuristic)
         {
-            
+            if(graph.Vertices.Find(vertex => vertex.Value.Equals(start.Value)) == null)
+            {
+                throw new InvalidOperationException("Start point isn't valid.");
+            }
+
+            if (graph.Vertices.Find(vertex => vertex.Value.Equals(end.Value)) == null)
+            {
+                throw new InvalidOperationException("End point isn't valid.");
+            }
+
+            if(start.Value.Equals(end.Value))
+            {
+                throw new InvalidOperationException("We are already at the destination.");
+            }
+
+            // check if it's blocked here
+            /*
+            if()
+            {
+
+            }
+            */
+
+            // create a closed list - how large should it be?
+
             return null;
         }
 

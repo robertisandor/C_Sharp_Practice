@@ -27,6 +27,12 @@ namespace GraphLib
         #endregion
 
         #region Abstract method
+        /// <summary>
+        /// Determines which item is greater than the other
+        /// </summary>
+        /// <param name="x">First item</param>
+        /// <param name="y">Second item</param>
+        /// <returns>Boolean value representing if the first item is greater than the second item</returns>
         protected abstract bool Dominates(T x, T y);
         #endregion 
 
@@ -70,6 +76,10 @@ namespace GraphLib
         }
         #endregion 
 
+        /// <summary>
+        /// Add an item to the heap
+        /// </summary>
+        /// <param name="item">Item to be added</param>
         public void Add(T item)
         {
             if(Count == Capacity)
@@ -82,6 +92,28 @@ namespace GraphLib
             siftUp(tail - 1);
         }
 
+        /// <summary>
+        /// Gets the value at the top of the heap
+        /// </summary>
+        /// <returns>Item at top of the heap</returns>
+        public T ExtractDominating()
+        {
+            if (Count == 0)
+            {
+                throw new InvalidOperationException("Heap is empty. Nothing can be extracted.");
+            }
+            T returnValue = heap[0];
+            tail--;
+            swap(tail, 0);
+            siftDown(0);
+            return returnValue;
+        }
+
+        #region Helper functions
+        /// <summary>
+        /// Moves an item at specified index up to appropriate spot in the heap
+        /// </summary>
+        /// <param name="index">Index of item to evaluate</param>
         private void siftUp(int index)
         {
             if(index == 0 || Dominates(heap[parent(index)], heap[index]))
@@ -93,6 +125,10 @@ namespace GraphLib
             siftUp(parent(index));
         }
 
+        /// <summary>
+        /// Moves an item at specified index down to appropriate spot in the heap
+        /// </summary>
+        /// <param name="index">Index of item to evaluate</param>
         private void siftDown(int index)
         {
             int dominatingNode = Dominating(index);
@@ -103,6 +139,7 @@ namespace GraphLib
             swap(index, dominatingNode);
             siftDown(dominatingNode);
         }
+
 
         private int Dominating(int index)
         {
@@ -125,7 +162,12 @@ namespace GraphLib
                 return dominatingNode;
             }
         }
-
+        
+        /// <summary>
+        /// Swaps two items in the heap
+        /// </summary>
+        /// <param name="firstIndex"></param>
+        /// <param name="secondIndex"></param>
         private void swap(int firstIndex, int secondIndex)
         {
             T tempHolder = heap[firstIndex];
@@ -133,6 +175,20 @@ namespace GraphLib
             heap[secondIndex] = tempHolder;
         }
 
+        /// <summary>
+        /// Helper function to expand the heap
+        /// </summary>
+        private void Grow()
+        {
+            int newCapacity = Capacity * growthRate + minGrowth;
+            var newHeap = new T[newCapacity];
+            Array.Copy(heap, newHeap, Capacity);
+            heap = newHeap;
+            Capacity = newCapacity;
+        }
+        #endregion
+
+        #region Static functions
         /// <summary>
         /// Finds the parent of a given index
         /// </summary>
@@ -161,19 +217,8 @@ namespace GraphLib
         private static int rightChild(int index)
         {
             return leftChild(index) + 1;
-        }
-
-        /// <summary>
-        /// Helper function to expand the heap
-        /// </summary>
-        private void Grow()
-        {
-            int newCapacity = Capacity * growthRate + minGrowth;
-            var newHeap = new T[newCapacity];
-            Array.Copy(heap, newHeap, Capacity);
-            heap = newHeap;
-            Capacity = newCapacity;
-        }
+        }       
+        #endregion 
 
         #region IEnumerable interface implementation
         public IEnumerator<T> GetEnumerator()
@@ -193,14 +238,60 @@ namespace GraphLib
     #region MinHeap class
     public class MinHeap<T> : Heap<T>
     {
-        
+        public MinHeap() : this(Comparer<T>.Default)
+        {
+
+        }
+
+        public MinHeap(Comparer<T> comparer) : base(comparer)
+        {
+
+        }
+
+        public MinHeap(IEnumerable<T> collection) : base(collection)
+        {
+
+        }
+
+        public MinHeap(IEnumerable<T> collection, Comparer<T> comparer) : base(collection, comparer)
+        {
+
+        }
+
+        protected override bool Dominates(T x, T y)
+        {
+            return Comparer.Compare(x, y) <= 0;
+        }
     }
     #endregion
 
     #region MaxHeap class
     public class MaxHeap<T> : Heap<T>
     {
+        public MaxHeap() : this(Comparer<T>.Default)
+        {
 
+        }
+
+        public MaxHeap(Comparer<T> comparer) : base(comparer)
+        {
+
+        }
+
+        public MaxHeap(IEnumerable<T> collection) : base(collection)
+        {
+
+        }
+
+        public MaxHeap(IEnumerable<T> collection, Comparer<T> comparer) : base(collection, comparer)
+        {
+
+        }
+
+        protected override bool Dominates(T x, T y)
+        {
+            return Comparer.Compare(x, y) >= 0;
+        }
     }
     #endregion 
 }

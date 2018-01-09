@@ -54,6 +54,7 @@
     <Compile Include="GraphTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GraphTraversalTest.cs" />
+    <Compile Include="HeapTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

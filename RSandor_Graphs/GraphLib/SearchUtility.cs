@@ -11,12 +11,16 @@ namespace GraphLib
         public readonly double X;
         public readonly double Y;
         public readonly bool Blocked;
+        public (double x, double y) Parent;
 
         public Cell(Vertex<(double x, double y)> node, bool blocked)
         {
             X = node.Value.x;
             Y = node.Value.y;
             Blocked = blocked;
+            F = double.MaxValue;
+            G = double.MaxValue;
+            Parent = (Double.MinValue, Double.MinValue);
         }
     }
 
@@ -264,35 +268,56 @@ namespace GraphLib
         // pacman, LoL
         // undirected algorithm
         // TODO: fix and finish this function
-        public static Queue<Vertex<(double, double)>> AStarSearch(Graph<(double, double)> graph, Vertex<(double, double)> start, Vertex<(double, double)> end, Func<(double, double), (double, double), double> heuristic)
+        // public static Queue<Vertex<(double, double)>> AStarSearch(Graph<(double, double)> graph, Vertex<(double, double)> start, Vertex<(double, double)> end, Func<(double, double), (double, double), double> heuristic)
+        public static Queue<Vertex<(double x, double y)>> AStarSearch(Cell[,] graph, Vertex<(double x, double y)> start, Vertex<(double x, double y)> end, Func<(double x, double y), (double x, double y), double f> heuristic)
         {
             // would it be easier to add stuff to the vertex class
             // or create the cell class and pass an array/list to the A* search function?
-
-            if(graph.Vertices.Find(vertex => vertex.Value.Equals(start.Value)) == null)
+            if (start == null)
             {
                 throw new InvalidOperationException("Start point isn't valid.");
             }
 
-            if (graph.Vertices.Find(vertex => vertex.Value.Equals(end.Value)) == null)
+            if (end == null)
             {
                 throw new InvalidOperationException("End point isn't valid.");
             }
 
-            if(start.Value.Equals(end.Value))
+            if (start.Value.Equals(end.Value))
             {
                 throw new InvalidOperationException("The start is also the destination.");
             }
 
-
-            // check if it's blocked here
-            // how do we indicate if a node is blocked or not?
-            /*
-            if()
+            // TODO: find if this is necessary
+            // maybe find the row and column of which cell is the start point?
+            Cell startPoint = null;
+            foreach (var cell in graph)
             {
-
+                if(cell.X.Equals(start.Value.x) && cell.Y.Equals(start.Value.y))
+                {
+                    startPoint = cell;
+                }
             }
-            */
+
+            // TODO: find if this is necessary
+            // maybe find the row and column of which cell is the end point?
+            Cell endPoint = null;
+            foreach (var cell in graph)
+            {
+                if (cell.X.Equals(start.Value.x) && cell.Y.Equals(start.Value.y))
+                {
+                    endPoint = cell;
+                }
+            }
+
+            if(startPoint.Blocked || endPoint.Blocked)
+            {
+                throw new InvalidOperationException("The start or the end point is blocked.");
+            }
+
+            // startPoint.F = 0;
+            // startPoint.G = 0;
+            // startPoint.Parent = ();
 
             // create a closed list - how large should it be?
             // create a 2d array to hold details of each cell in the map
@@ -309,11 +334,12 @@ namespace GraphLib
             // check all 8 directions? <- necessary?
             return null;
         }
-
+        /*
         public static Queue<Vertex<T>> AStarSearch(Graph<T> graph, Func<(T,T), (T,T), T> heuristic)
         {
             return null;
         }
+        */
 
         // TODO: fix and finish this function
         public static double CalculateManhattanDistance((double x, double y) start, (double x, double y) end)

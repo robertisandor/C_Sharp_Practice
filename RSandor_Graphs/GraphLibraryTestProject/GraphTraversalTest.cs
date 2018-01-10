@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GraphLib;
+using System.Collections.Generic;
 
 namespace GraphLibraryTestProject
 {
@@ -117,6 +118,186 @@ namespace GraphLibraryTestProject
                 Console.WriteLine("A search algorithm requiring weights was improperly used on an unweighted graph.");
             }
             catch(InvalidOperationException exception)
+            {
+
+            }
+        }
+
+        [TestMethod]
+        public void AStarSearchTest()
+        {
+            int size = 4;
+            int blockedRowIndex = 1;
+            int blockedHeightIndex = 1;
+
+            Graph<(double x, double y)> graph = new Graph<(double x, double y)>(true, false);
+            for(int y = 0; y < size; y++)
+            {
+                for(int x = 0; x < size; x++)
+                {
+                    graph.Vertices.Add(graph.CreateVertex((x, y)));
+                }
+            }
+
+            graph.Edges.AddRange(graph.CreateEdge((0, 0), (0, 1), 4.0f));
+            graph.Edges.AddRange(graph.CreateEdge((0, 1), (0, 2), 5.0f));
+            graph.Edges.AddRange(graph.CreateEdge((0, 2), (0, 3), 6.0f));
+            graph.Edges.AddRange(graph.CreateEdge((0, 3), (1, 3), 7.0f));
+            graph.Edges.AddRange(graph.CreateEdge((1, 3), (2, 3), 8.0f));
+            graph.Edges.AddRange(graph.CreateEdge((2, 3), (3, 3), 9.0f));
+
+            graph.Edges.AddRange(graph.CreateEdge((0, 0), (1, 0), 1.0f));
+            graph.Edges.AddRange(graph.CreateEdge((1, 0), (2, 0), 2.0f));
+            graph.Edges.AddRange(graph.CreateEdge((2, 0), (3, 0), 3.0f));
+            graph.Edges.AddRange(graph.CreateEdge((3, 0), (3, 1), 4.0f));
+            graph.Edges.AddRange(graph.CreateEdge((3, 1), (3, 2), 5.0f));
+            graph.Edges.AddRange(graph.CreateEdge((3, 2), (3, 3), 6.0f));
+
+            Cell[,] grid = new Cell[size,size];
+            for(int row = 0; row < size; row++)
+            {
+                for(int column = 0; column < size; column++)
+                {
+                    var vertex = graph.Vertices.Find(node => node.Value.x.Equals(column) && node.Value.y.Equals(row));
+                    if (row == blockedRowIndex && column == blockedHeightIndex)
+                    {
+                        grid[row, column] = new Cell(vertex, true);
+                    }
+                    else
+                    {
+                        grid[row, column] = new Cell(vertex, false);
+                    }
+                }
+            }
+
+            var answer = SearchUtility<(double x, double y)>.AStarSearch(grid, graph.Vertices[0], graph.Vertices[graph.Vertices.Count - 1], SearchUtility<(double x, double y)>.CalculateManhattanDistance);
+            // Assert.AreEqual(7, answer.Count);
+        }
+
+        [TestMethod]
+        public void AStarSearchStartAndEndAreSame()
+        {
+            int size = 4;
+            int blockedRowIndex = 1;
+            int blockedHeightIndex = 1;
+
+            Graph<(double x, double y)> graph = new Graph<(double x, double y)>(true, false);
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    graph.Vertices.Add(graph.CreateVertex((x, y)));
+                }
+            }
+
+            graph.Edges.AddRange(graph.CreateEdge((0, 0), (0, 1), 4.0f));
+            graph.Edges.AddRange(graph.CreateEdge((0, 1), (0, 2), 5.0f));
+            graph.Edges.AddRange(graph.CreateEdge((0, 2), (0, 3), 6.0f));
+            graph.Edges.AddRange(graph.CreateEdge((0, 3), (1, 3), 7.0f));
+            graph.Edges.AddRange(graph.CreateEdge((1, 3), (2, 3), 8.0f));
+            graph.Edges.AddRange(graph.CreateEdge((2, 3), (3, 3), 9.0f));
+
+            graph.Edges.AddRange(graph.CreateEdge((0, 0), (1, 0), 1.0f));
+            graph.Edges.AddRange(graph.CreateEdge((1, 0), (2, 0), 2.0f));
+            graph.Edges.AddRange(graph.CreateEdge((2, 0), (3, 0), 3.0f));
+            graph.Edges.AddRange(graph.CreateEdge((3, 0), (3, 1), 4.0f));
+            graph.Edges.AddRange(graph.CreateEdge((3, 1), (3, 2), 5.0f));
+            graph.Edges.AddRange(graph.CreateEdge((3, 2), (3, 3), 6.0f));
+
+            Cell[,] grid = new Cell[size, size];
+            for (int row = 0; row < size; row++)
+            {
+                for (int column = 0; column < size; column++)
+                {
+                    var vertex = graph.Vertices.Find(node => node.Value.x.Equals(column) && node.Value.y.Equals(row));
+                    if (row == blockedRowIndex && column == blockedHeightIndex)
+                    {
+                        grid[row, column] = new Cell(vertex, true);
+                    }
+                    else
+                    {
+                        grid[row, column] = new Cell(vertex, false);
+                    }
+                }
+            }
+
+            try
+            {
+                var answer = SearchUtility<(double x, double y)>.AStarSearch(grid, graph.Vertices[0], graph.Vertices[0], SearchUtility<(double x, double y)>.CalculateManhattanDistance);
+                Console.WriteLine("The A* search function is invalidly searching for a " +
+                    "path where the start and the end are the same");
+            }
+            catch(InvalidOperationException exception)
+            {
+
+            }
+        }
+
+        [TestMethod]
+        public void AStarSearchWithInvalidPoint()
+        {
+            int size = 4;
+            int blockedRowIndex = 1;
+            int blockedHeightIndex = 1;
+
+            Graph<(double x, double y)> graph = new Graph<(double x, double y)>(true, false);
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    graph.Vertices.Add(graph.CreateVertex((x, y)));
+                }
+            }
+
+            graph.Edges.AddRange(graph.CreateEdge((0, 0), (0, 1), 4.0f));
+            graph.Edges.AddRange(graph.CreateEdge((0, 1), (0, 2), 5.0f));
+            graph.Edges.AddRange(graph.CreateEdge((0, 2), (0, 3), 6.0f));
+            graph.Edges.AddRange(graph.CreateEdge((0, 3), (1, 3), 7.0f));
+            graph.Edges.AddRange(graph.CreateEdge((1, 3), (2, 3), 8.0f));
+            graph.Edges.AddRange(graph.CreateEdge((2, 3), (3, 3), 9.0f));
+
+            graph.Edges.AddRange(graph.CreateEdge((0, 0), (1, 0), 1.0f));
+            graph.Edges.AddRange(graph.CreateEdge((1, 0), (2, 0), 2.0f));
+            graph.Edges.AddRange(graph.CreateEdge((2, 0), (3, 0), 3.0f));
+            graph.Edges.AddRange(graph.CreateEdge((3, 0), (3, 1), 4.0f));
+            graph.Edges.AddRange(graph.CreateEdge((3, 1), (3, 2), 5.0f));
+            graph.Edges.AddRange(graph.CreateEdge((3, 2), (3, 3), 6.0f));
+
+            Cell[,] grid = new Cell[size, size];
+            for (int row = 0; row < size; row++)
+            {
+                for (int column = 0; column < size; column++)
+                {
+                    var vertex = graph.Vertices.Find(node => node.Value.x.Equals(column) && node.Value.y.Equals(row));
+                    if (row == blockedRowIndex && column == blockedHeightIndex)
+                    {
+                        grid[row, column] = new Cell(vertex, true);
+                    }
+                    else
+                    {
+                        grid[row, column] = new Cell(vertex, false);
+                    }
+                }
+            }
+
+            try
+            {
+                var answer = SearchUtility<(double x, double y)>.AStarSearch(grid, graph.Vertices[0], null, SearchUtility<(double x, double y)>.CalculateManhattanDistance);
+                Console.WriteLine("The A* search function is invalidly searching for a " +
+                    "path where the end doesn't exist");
+            }
+            catch (InvalidOperationException exception)
+            {
+
+            }
+
+            try
+            {
+                var answer = SearchUtility<(double x, double y)>.AStarSearch(grid, null, graph.Vertices[0], SearchUtility<(double x, double y)>.CalculateManhattanDistance);
+                Console.WriteLine("The A* search function is invalidly searching for a " +
+                    "path where the start doesn't exist");
+            }
+            catch (InvalidOperationException exception)
             {
 
             }

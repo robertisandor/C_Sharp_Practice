@@ -24,6 +24,14 @@ namespace GraphLib
         }
     }
 
+    public class CellComparer : Comparer<Cell>
+    {
+        public override int Compare(Cell left, Cell right)
+        {
+            return left.F.CompareTo(right.F);
+        }
+    }
+
     public static class SearchUtility<T> where T : struct, IComparable<T>
     {
         #region Breadth-First Search method
@@ -269,7 +277,7 @@ namespace GraphLib
         // undirected algorithm
         // TODO: fix and finish this function
         // public static Queue<Vertex<(double, double)>> AStarSearch(Graph<(double, double)> graph, Vertex<(double, double)> start, Vertex<(double, double)> end, Func<(double, double), (double, double), double> heuristic)
-        public static Queue<Vertex<(double x, double y)>> AStarSearch(Cell[,] graph, Vertex<(double x, double y)> start, Vertex<(double x, double y)> end, Func<(double x, double y), (double x, double y), double f> heuristic)
+        public static Queue<Vertex<(double x, double y)>> AStarSearch(Cell[,] graph, Vertex<(double x, double y)> start, Vertex<(double x, double y)> end, Func<(double x, double y), (double x, double y), double> heuristic)
         {
             // would it be easier to add stuff to the vertex class
             // or create the cell class and pass an array/list to the A* search function?
@@ -288,44 +296,82 @@ namespace GraphLib
                 throw new InvalidOperationException("The start is also the destination.");
             }
 
-            // TODO: find if this is necessary
-            // maybe find the row and column of which cell is the start point?
-            Cell startPoint = null;
-            foreach (var cell in graph)
+            int startRowIndex = -1;
+            int startColumnIndex = -1;
+            for (int row = 0; row < graph.Length; row++)
             {
-                if(cell.X.Equals(start.Value.x) && cell.Y.Equals(start.Value.y))
+                // TODO: find a better variable than graph.Length
+                for (int column = 0; column < graph.Length; column++)
                 {
-                    startPoint = cell;
+                    if (graph[row, column].X == start.Value.x && graph[row, column].Y == start.Value.y)
+                    {
+                        startRowIndex = row;
+                        startColumnIndex = column;
+                    }
                 }
             }
 
-            // TODO: find if this is necessary
-            // maybe find the row and column of which cell is the end point?
-            Cell endPoint = null;
-            foreach (var cell in graph)
+            int endRowIndex = -1;
+            int endColumnIndex = -1;
+            for (int row = 0; row < graph.Length; row++)
             {
-                if (cell.X.Equals(start.Value.x) && cell.Y.Equals(start.Value.y))
+                // TODO: find a better variable than graph.Length; 
+                // this assumes that the height and width are the same
+                for (int column = 0; column < graph.Length; column++)
                 {
-                    endPoint = cell;
+                    if (graph[row, column].X == start.Value.x && graph[row, column].Y == start.Value.y)
+                    {
+                        startRowIndex = row;
+                        startColumnIndex = column;
+                    }
                 }
             }
 
-            if(startPoint.Blocked || endPoint.Blocked)
+            if (graph[startRowIndex, startColumnIndex].Blocked || graph[endRowIndex, endColumnIndex].Blocked)
             {
                 throw new InvalidOperationException("The start or the end point is blocked.");
             }
 
-            // startPoint.F = 0;
-            // startPoint.G = 0;
-            // startPoint.Parent = ();
+            bool [,] closedList = new bool[graph.Length, graph.Length];
+            for(int row = 0; row < closedList.Length; row++)
+            {
+                for(int column = 0; column < closedList.Length; column++)
+                {
+                    closedList[row, column] = false;
+                }
+            }
 
+            graph[startRowIndex, startColumnIndex].F = 0;
+            graph[startRowIndex, startColumnIndex].G = 0;
+            // the parent of the start node is the start node itself?
+            graph[startRowIndex, startColumnIndex].Parent = (graph[startRowIndex, startColumnIndex].X, graph[startRowIndex, startColumnIndex].Y);
+
+            MinHeap<Cell> priorityQueue = new MinHeap<Cell>(new CellComparer());
+            priorityQueue.Add(graph[startRowIndex, startColumnIndex]);
+            priorityQueue.Add(graph[1, 1]);
+            priorityQueue.Add(graph[graph.Length - 1, graph.Length - 1]);
+
+            //bool foundDestination = false;
+            /*
+            while(priorityQueue.Count > 0)
+            {
+                var recentValue = priorityQueue.ExtractDominating();
+            }
+            */
             // create a closed list - how large should it be?
             // create a 2d array to hold details of each cell in the map
             // do I need a separate class for that?
             // set the h (heuristic), g (cost to get to a given node/goal), 
             // and f (sum of g and h) to the max value
+            // calculate H on-the-fly, F is needed 
+            // because the minheap is sorted using that value
+
+            // Ryan implements it so that it's one list, just the open one?
+            // what does the closed list do?
 
             // initialize the starting node with f, g, and h values of 0
+
+
 
             // create an open list that has the cell location and f cost associated with it
             // insert the starting node into the open list

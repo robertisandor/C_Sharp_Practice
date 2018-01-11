@@ -277,7 +277,8 @@ namespace GraphLib
         // undirected algorithm
         // TODO: fix and finish this function
         // public static Queue<Vertex<(double, double)>> AStarSearch(Graph<(double, double)> graph, Vertex<(double, double)> start, Vertex<(double, double)> end, Func<(double, double), (double, double), double> heuristic)
-        public static Queue<Vertex<(double x, double y)>> AStarSearch(Cell[,] graph, Vertex<(double x, double y)> start, Vertex<(double x, double y)> end, Func<(double x, double y), (double x, double y), double> heuristic)
+        // do I want a queue of vertices or cells? does it make that much of a difference?
+        public static Queue<Cell> AStarSearch(Cell[,] graph, Vertex<(double x, double y)> start, Vertex<(double x, double y)> end, Func<(double x, double y), (double x, double y), double> heuristic)
         {
             // would it be easier to add stuff to the vertex class
             // or create the cell class and pass an array/list to the A* search function?
@@ -298,10 +299,11 @@ namespace GraphLib
 
             int startRowIndex = -1;
             int startColumnIndex = -1;
-            for (int row = 0; row < graph.Length; row++)
+            // TODO: replace size with something else
+            int size = 4;
+            for (int row = 0; row < size; row++)
             {
-                // TODO: find a better variable than graph.Length
-                for (int column = 0; column < graph.Length; column++)
+                for (int column = 0; column < size; column++)
                 {
                     if (graph[row, column].X == start.Value.x && graph[row, column].Y == start.Value.y)
                     {
@@ -313,16 +315,16 @@ namespace GraphLib
 
             int endRowIndex = -1;
             int endColumnIndex = -1;
-            for (int row = 0; row < graph.Length; row++)
+            for (int row = 0; row < size; row++)
             {
                 // TODO: find a better variable than graph.Length; 
                 // this assumes that the height and width are the same
-                for (int column = 0; column < graph.Length; column++)
+                for (int column = 0; column < size; column++)
                 {
-                    if (graph[row, column].X == start.Value.x && graph[row, column].Y == start.Value.y)
+                    if (graph[row, column].X == end.Value.x && graph[row, column].Y == end.Value.y)
                     {
-                        startRowIndex = row;
-                        startColumnIndex = column;
+                        endRowIndex = row;
+                        endColumnIndex = column;
                     }
                 }
             }
@@ -333,31 +335,80 @@ namespace GraphLib
             }
 
             bool [,] closedList = new bool[graph.Length, graph.Length];
-            for(int row = 0; row < closedList.Length; row++)
+            for(int row = 0; row < size; row++)
             {
-                for(int column = 0; column < closedList.Length; column++)
+                for(int column = 0; column < size; column++)
                 {
                     closedList[row, column] = false;
                 }
             }
+
+            Queue<Cell> path = new Queue<Cell>();
 
             graph[startRowIndex, startColumnIndex].F = 0;
             graph[startRowIndex, startColumnIndex].G = 0;
             // the parent of the start node is the start node itself?
             graph[startRowIndex, startColumnIndex].Parent = (graph[startRowIndex, startColumnIndex].X, graph[startRowIndex, startColumnIndex].Y);
 
-            MinHeap<Cell> priorityQueue = new MinHeap<Cell>(new CellComparer());
-            priorityQueue.Add(graph[startRowIndex, startColumnIndex]);
-            priorityQueue.Add(graph[1, 1]);
-            priorityQueue.Add(graph[graph.Length - 1, graph.Length - 1]);
+            MinHeap<Cell> openList = new MinHeap<Cell>(new CellComparer());
+            openList.Add(graph[startRowIndex, startColumnIndex]);
 
-            //bool foundDestination = false;
-            /*
-            while(priorityQueue.Count > 0)
+            bool foundDestination = false;
+            
+            while(openList.Count > 0)
             {
-                var recentValue = priorityQueue.ExtractDominating();
+                Cell recentValue = openList.ExtractDominating();
+                double columnIndexOfRecentValue = recentValue.X;
+                double rowIndexOfRecentValue = recentValue.Y;
+                closedList[(int)rowIndexOfRecentValue, (int)columnIndexOfRecentValue] = true;
+
+                double newGValue = -1;
+                double newFValue = -1;
+                double newHValue = -1;
+
+                // do something similar to the if/else if statement below for 8 cases 
+                // (each node around the original node)
+
+                // check if the node directly above the node that was popped off
+                // is a valid node
+                if(rowIndexOfRecentValue - 1 < size && columnIndexOfRecentValue < size)
+                {
+                    // if it is a valid node AND it's the destination
+                    if (rowIndexOfRecentValue == endRowIndex && endColumnIndex == columnIndexOfRecentValue)
+                    {
+                        graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].Parent = (rowIndexOfRecentValue, columnIndexOfRecentValue);
+                        // trace path? - uses the parent attribute and a stack to go through
+                        // the path until it hits the "root"
+                        path = tracePath(graph, end);
+                        foundDestination = true;
+                    }
+                }
+                // otherwise if it's not part of the closed list and it's not blocked...
+                else if (!closedList[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue] && !graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].Blocked)
+                {
+                    newGValue = graph[(int)rowIndexOfRecentValue, (int)columnIndexOfRecentValue].G + 1;
+                    // maybe I should pair the x and y values in the cell?
+                    newHValue = heuristic((graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].X, graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].Y), end.Value);
+                    newFValue = newGValue + newHValue;
+
+                    // this is way too verbose... 
+                    // TODO: refactor so it's less verbose
+                    if(graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].F == double.MaxValue ||
+                        newFValue < graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].F)
+                    {
+                        openList.Add(graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue]);
+
+                        graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].F = newFValue;
+                        graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].G = newGValue;
+                        graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].Parent = (rowIndexOfRecentValue, columnIndexOfRecentValue);
+                    }
+                }
             }
-            */
+
+            if (!foundDestination)
+            {
+                return null;
+            }
             // create a closed list - how large should it be?
             // create a 2d array to hold details of each cell in the map
             // do I need a separate class for that?
@@ -378,7 +429,27 @@ namespace GraphLib
             // would the open list be a heap?
 
             // check all 8 directions? <- necessary?
-            return null;
+            return path;
+        }
+
+        private static Queue<Cell> tracePath(Cell[,] graph, Vertex<(double x, double y)> destination)
+        {
+            int columnIndex = (int)destination.Value.x;
+            int rowIndex = (int)destination.Value.y;
+            Stack<Cell> reversedPath = new Stack<Cell>();
+            Queue<Cell> path = new Queue<Cell>();
+            while(!(graph[rowIndex, columnIndex].Parent.Equals(destination.Value)))
+            {
+                reversedPath.Push(graph[rowIndex, columnIndex]);
+                rowIndex = (int)graph[rowIndex, columnIndex].Parent.y;
+                columnIndex = (int)graph[rowIndex, columnIndex].Parent.x;
+            }
+
+            while(reversedPath.Count > 0)
+            {
+                path.Enqueue(reversedPath.Pop());
+            }
+            return path;
         }
         /*
         public static Queue<Vertex<T>> AStarSearch(Graph<T> graph, Func<(T,T), (T,T), T> heuristic)

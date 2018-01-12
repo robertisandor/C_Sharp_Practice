@@ -38,7 +38,7 @@ namespace GraphLib
 
         public static Queue<Vertex<T>> BFS(Graph<T> graph, Vertex<T> start)
         {
-            for(int index = 0; index < graph.Vertices.Count; index++)
+            for (int index = 0; index < graph.Vertices.Count; index++)
             {
                 graph.Vertices[index].Visited = false;
             }
@@ -50,7 +50,7 @@ namespace GraphLib
 
             nodesToVisit.Enqueue(graph.Vertices[indexOfStart]);
 
-            while(nodesToVisit.Count > 0)
+            while (nodesToVisit.Count > 0)
             {
                 Vertex<T> visitedNode = nodesToVisit.Dequeue();
                 // find the visitedNode's neighbors
@@ -62,20 +62,20 @@ namespace GraphLib
                 List<Vertex<T>> neighbors = new List<Vertex<T>>();
                 // find the neighbors
                 // go through each edge to find neighbors
-                foreach(var edge in graph.Edges)
+                foreach (var edge in graph.Edges)
                 {
                     // if the start of the edge matches the visited node,
                     // then we've found an outgoing edge (neighbor)
-                    if(edge.Start.Value.Equals(visitedNode.Value))
+                    if (edge.Start.Value.Equals(visitedNode.Value))
                     {
                         neighbors.Add(edge.End);
                         continue;
                     }
                 }
 
-                foreach(var neighbor in neighbors)
+                foreach (var neighbor in neighbors)
                 {
-                    if(neighbor.Visited)
+                    if (neighbor.Visited)
                     {
                         continue;
                     }
@@ -109,7 +109,7 @@ namespace GraphLib
         private static List<Vertex<T>> dfs_Recursive(Graph<T> graph, Vertex<T> current)
         {
             current.Visited = true;
-           
+
             List<Vertex<T>> visitedNodes = new List<Vertex<T>>();
             visitedNodes.Add(current);
 
@@ -130,7 +130,7 @@ namespace GraphLib
             // for each neighbor
             for (int index = 0; index < neighbors.Count; index++)
             {
-                if(neighbors[index].Visited)
+                if (neighbors[index].Visited)
                 {
                     continue;
                 }
@@ -172,7 +172,7 @@ namespace GraphLib
 
             // is this the right datatype?
             List<T> parents = new List<T>(graph.Vertices.Count);
-            foreach(var vertex in graph.Vertices)
+            foreach (var vertex in graph.Vertices)
             {
                 parents.Add(vertex.Value);
             }
@@ -196,7 +196,7 @@ namespace GraphLib
             parents[indexOfStart] = default(T);
             distancesToNodes[indexOfStart] = 0;
 
-            for(int index = 0; index < graph.Vertices.Count - 1; index++)
+            for (int index = 0; index < graph.Vertices.Count - 1; index++)
             {
                 // could a minheap/priority queue be used rather than the minimum distance function?
                 int minimumDistanceVertexIndex = calculateMinimumDistance(graph, distancesToNodes, shortestPathTreeSet);
@@ -204,11 +204,11 @@ namespace GraphLib
                 // marks this particular index as processed
                 shortestPathTreeSet[minimumDistanceVertexIndex] = true;
 
-                
-                for(int vertexIndex = 0; vertexIndex < graph.Vertices.Count; vertexIndex++)
+
+                for (int vertexIndex = 0; vertexIndex < graph.Vertices.Count; vertexIndex++)
                 {
                     Edge<T> edgeBetweenMinimumAndCurrent = graph.Edges.Find(
-                        edge => edge.Start.Value.Equals(graph.Vertices[minimumDistanceVertexIndex].Value) && 
+                        edge => edge.Start.Value.Equals(graph.Vertices[minimumDistanceVertexIndex].Value) &&
                         edge.End.Value.Equals(graph.Vertices[vertexIndex].Value));
 
                     if (!shortestPathTreeSet[vertexIndex] && edgeBetweenMinimumAndCurrent != null &&
@@ -231,9 +231,9 @@ namespace GraphLib
             double minimumDistance = double.MaxValue;
             int minimumIndex = 0;
 
-            for(int index = 0; index < graph.Vertices.Count; index++)
+            for (int index = 0; index < graph.Vertices.Count; index++)
             {
-                if(!shortestPathTreeSet[index] && distances[index] <= minimumDistance)
+                if (!shortestPathTreeSet[index] && distances[index] <= minimumDistance)
                 {
                     minimumDistance = distances[index];
                     minimumIndex = index;
@@ -248,9 +248,9 @@ namespace GraphLib
             List<Vertex<T>> path = new List<Vertex<T>>();
             int indexOfCurrent = graph.Vertices.FindIndex(vertex => vertex.Value.Equals(current.Value));
 
-            if(parents[indexOfCurrent].Equals(default(T)))
+            if (parents[indexOfCurrent].Equals(default(T)))
             {
-                Vertex<T> startVertex = graph.Vertices.Find(vertex => vertex.Value.Equals(current.Value)); 
+                Vertex<T> startVertex = graph.Vertices.Find(vertex => vertex.Value.Equals(current.Value));
                 path.Add(startVertex);
                 return path;
             }
@@ -334,10 +334,10 @@ namespace GraphLib
                 throw new InvalidOperationException("The start or the end point is blocked.");
             }
 
-            bool [,] closedList = new bool[graph.Length, graph.Length];
-            for(int row = 0; row < size; row++)
+            bool[,] closedList = new bool[graph.Length, graph.Length];
+            for (int row = 0; row < size; row++)
             {
-                for(int column = 0; column < size; column++)
+                for (int column = 0; column < size; column++)
                 {
                     closedList[row, column] = false;
                 }
@@ -354,8 +354,8 @@ namespace GraphLib
             openList.Add(graph[startRowIndex, startColumnIndex]);
 
             bool foundDestination = false;
-            
-            while(openList.Count > 0)
+
+            while (openList.Count > 0)
             {
                 Cell recentValue = openList.ExtractDominating();
                 double columnIndexOfRecentValue = recentValue.X;
@@ -369,40 +369,59 @@ namespace GraphLib
                 // do something similar to the if/else if statement below for 8 cases 
                 // (each node around the original node)
 
+
+                for (int rowDifference = -1; rowDifference <= 1; rowDifference++)
+                {
+                    for (int columnDifference = -1; columnDifference <= 1; columnDifference++)
+                    {
+                        if (rowDifference == 0 && columnDifference == 0)
+                        {
+                            continue;
+                        }
+
+                        if (rowIndexOfRecentValue + rowDifference < size && rowIndexOfRecentValue + rowDifference >= 0 && columnIndexOfRecentValue + columnDifference < size && columnIndexOfRecentValue + columnDifference >= 0)
+                        {
+                            // if it is a valid node AND it's the destination
+                            if (rowIndexOfRecentValue == endRowIndex && endColumnIndex == columnIndexOfRecentValue)
+                            {
+                                graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Parent = (rowIndexOfRecentValue, columnIndexOfRecentValue);
+                                // trace path? - uses the parent attribute and a stack to go through
+                                // the path until it hits the "root"
+                                path = tracePath(graph, end);
+                                foundDestination = true;
+                                break;
+                            }
+
+                            // otherwise if it's not part of the closed list and it's not blocked...
+                            else if (!closedList[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference] && !graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Blocked)
+                            {
+                                newGValue = graph[(int)rowIndexOfRecentValue, (int)columnIndexOfRecentValue].G + 1;
+                                // maybe I should pair the x and y values in the cell?
+                                newHValue = heuristic((graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].X, graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Y), end.Value);
+                                newFValue = newGValue + newHValue;
+
+                                // this is way too verbose... 
+                                // TODO: refactor so it's less verbose
+                                if (graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].F == double.MaxValue ||
+                                    newFValue < graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].F)
+                                {
+                                    openList.Add(graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference]);
+
+                                    graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].F = newFValue;
+                                    graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].G = newGValue;
+                                    graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Parent = (rowIndexOfRecentValue, columnIndexOfRecentValue);
+                                }
+                            }
+                        }
+                    }
+                    if(foundDestination)
+                    {
+                        break;
+                    }
+                }
                 // check if the node directly above the node that was popped off
                 // is a valid node
-                if(rowIndexOfRecentValue - 1 < size && columnIndexOfRecentValue < size)
-                {
-                    // if it is a valid node AND it's the destination
-                    if (rowIndexOfRecentValue == endRowIndex && endColumnIndex == columnIndexOfRecentValue)
-                    {
-                        graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].Parent = (rowIndexOfRecentValue, columnIndexOfRecentValue);
-                        // trace path? - uses the parent attribute and a stack to go through
-                        // the path until it hits the "root"
-                        path = tracePath(graph, end);
-                        foundDestination = true;
-                    }
-                }
-                // otherwise if it's not part of the closed list and it's not blocked...
-                else if (!closedList[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue] && !graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].Blocked)
-                {
-                    newGValue = graph[(int)rowIndexOfRecentValue, (int)columnIndexOfRecentValue].G + 1;
-                    // maybe I should pair the x and y values in the cell?
-                    newHValue = heuristic((graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].X, graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].Y), end.Value);
-                    newFValue = newGValue + newHValue;
 
-                    // this is way too verbose... 
-                    // TODO: refactor so it's less verbose
-                    if(graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].F == double.MaxValue ||
-                        newFValue < graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].F)
-                    {
-                        openList.Add(graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue]);
-
-                        graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].F = newFValue;
-                        graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].G = newGValue;
-                        graph[(int)rowIndexOfRecentValue - 1, (int)columnIndexOfRecentValue].Parent = (rowIndexOfRecentValue, columnIndexOfRecentValue);
-                    }
-                }
             }
 
             if (!foundDestination)
@@ -438,14 +457,17 @@ namespace GraphLib
             int rowIndex = (int)destination.Value.y;
             Stack<Cell> reversedPath = new Stack<Cell>();
             Queue<Cell> path = new Queue<Cell>();
-            while(!(graph[rowIndex, columnIndex].Parent.Equals(destination.Value)))
+            while (!(graph[rowIndex, columnIndex].Parent.Equals((graph[rowIndex, columnIndex].X, graph[rowIndex, columnIndex].Y))))
             {
                 reversedPath.Push(graph[rowIndex, columnIndex]);
-                rowIndex = (int)graph[rowIndex, columnIndex].Parent.y;
-                columnIndex = (int)graph[rowIndex, columnIndex].Parent.x;
+                int tempRowIndex = (int)graph[rowIndex, columnIndex].Parent.y;
+                int tempColumnIndex = (int)graph[rowIndex, columnIndex].Parent.x;
+                rowIndex = tempRowIndex;
+                columnIndex = tempColumnIndex;
             }
+            reversedPath.Push(graph[rowIndex, columnIndex]);
 
-            while(reversedPath.Count > 0)
+            while (reversedPath.Count > 0)
             {
                 path.Enqueue(reversedPath.Pop());
             }

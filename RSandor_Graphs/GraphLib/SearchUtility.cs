@@ -11,6 +11,10 @@ namespace GraphLib
         public readonly double X;
         public readonly double Y;
         public readonly bool Blocked;
+        // vertexes don't have weights...
+        // do I use the Edge class?
+        public readonly double Weight;
+        // TODO: change this to a Cell type
         public (double x, double y) Parent;
 
         public Cell(Vertex<(double x, double y)> node, bool blocked)
@@ -395,6 +399,8 @@ namespace GraphLib
                             // otherwise if it's not part of the closed list and it's not blocked...
                             else if (!closedList[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference] && !graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Blocked)
                             {
+                                // weights should be involved somewhere...
+                                // I probably need to replace the 1 with the weight
                                 newGValue = graph[(int)rowIndexOfRecentValue, (int)columnIndexOfRecentValue].G + 1;
                                 // maybe I should pair the x and y values in the cell?
                                 newHValue = heuristic((graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].X, graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Y), end.Value);

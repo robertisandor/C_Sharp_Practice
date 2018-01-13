@@ -171,7 +171,8 @@ namespace GraphLibraryTestProject
             }
 
             var answer = SearchUtility<(double x, double y)>.AStarSearch(grid, graph.Vertices[0], graph.Vertices[graph.Vertices.Count - 1], SearchUtility<(double x, double y)>.CalculateManhattanDistance);
-            // Assert.AreEqual(7, answer.Count);
+            Assert.AreEqual((0, 0), answer.Dequeue());
+            // Assert.AreEqual(, answer.Dequeue());
         }
 
         [TestMethod]

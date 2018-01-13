@@ -412,7 +412,7 @@ namespace GraphLib
                             continue;
                         }
 
-                        if (rowIndexOfRecentValue + rowDifference < size && rowIndexOfRecentValue + rowDifference >= 0 && columnIndexOfRecentValue + columnDifference < size && columnIndexOfRecentValue + columnDifference >= 0)
+                        if (rowIndexOfRecentValue + rowDifference < (maxYValue - minYValue) && rowIndexOfRecentValue + rowDifference >= 0 && columnIndexOfRecentValue + columnDifference < (maxXValue - minXValue) && columnIndexOfRecentValue + columnDifference >= 0)
                         {
                             // if it is a valid node AND it's the destination
                             if (rowIndexOfRecentValue == endRowIndex && endColumnIndex == columnIndexOfRecentValue)

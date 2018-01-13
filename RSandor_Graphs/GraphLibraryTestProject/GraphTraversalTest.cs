@@ -153,24 +153,7 @@ namespace GraphLibraryTestProject
             graph.Edges.AddRange(graph.CreateEdge((3, 1), (3, 2), 5.0f));
             graph.Edges.AddRange(graph.CreateEdge((3, 2), (3, 3), 6.0f));
 
-            Cell[,] grid = new Cell[size,size];
-            for(int row = 0; row < size; row++)
-            {
-                for(int column = 0; column < size; column++)
-                {
-                    var vertex = graph.Vertices.Find(node => node.Value.x.Equals(column) && node.Value.y.Equals(row));
-                    if (row == blockedRowIndex && column == blockedHeightIndex)
-                    {
-                        grid[row, column] = new Cell(vertex, true);
-                    }
-                    else
-                    {
-                        grid[row, column] = new Cell(vertex, false);
-                    }
-                }
-            }
-
-            var answer = SearchUtility<(double x, double y)>.AStarSearch(grid, graph.Vertices[0], graph.Vertices[graph.Vertices.Count - 1], SearchUtility<(double x, double y)>.CalculateManhattanDistance);
+            var answer = SearchUtility<(double x, double y)>.AStarSearch(graph, graph.Vertices[0], graph.Vertices[graph.Vertices.Count - 1], SearchUtility<(double x, double y)>.CalculateManhattanDistance);
             Assert.AreEqual((0, 0), answer.Dequeue());
             // Assert.AreEqual(, answer.Dequeue());
         }
@@ -205,26 +188,9 @@ namespace GraphLibraryTestProject
             graph.Edges.AddRange(graph.CreateEdge((3, 1), (3, 2), 5.0f));
             graph.Edges.AddRange(graph.CreateEdge((3, 2), (3, 3), 6.0f));
 
-            Cell[,] grid = new Cell[size, size];
-            for (int row = 0; row < size; row++)
-            {
-                for (int column = 0; column < size; column++)
-                {
-                    var vertex = graph.Vertices.Find(node => node.Value.x.Equals(column) && node.Value.y.Equals(row));
-                    if (row == blockedRowIndex && column == blockedHeightIndex)
-                    {
-                        grid[row, column] = new Cell(vertex, true);
-                    }
-                    else
-                    {
-                        grid[row, column] = new Cell(vertex, false);
-                    }
-                }
-            }
-
             try
             {
-                var answer = SearchUtility<(double x, double y)>.AStarSearch(grid, graph.Vertices[0], graph.Vertices[0], SearchUtility<(double x, double y)>.CalculateManhattanDistance);
+                var answer = SearchUtility<(double x, double y)>.AStarSearch(graph, graph.Vertices[0], graph.Vertices[0], SearchUtility<(double x, double y)>.CalculateManhattanDistance);
                 Console.WriteLine("The A* search function is invalidly searching for a " +
                     "path where the start and the end are the same");
             }
@@ -264,26 +230,9 @@ namespace GraphLibraryTestProject
             graph.Edges.AddRange(graph.CreateEdge((3, 1), (3, 2), 5.0f));
             graph.Edges.AddRange(graph.CreateEdge((3, 2), (3, 3), 6.0f));
 
-            Cell[,] grid = new Cell[size, size];
-            for (int row = 0; row < size; row++)
-            {
-                for (int column = 0; column < size; column++)
-                {
-                    var vertex = graph.Vertices.Find(node => node.Value.x.Equals(column) && node.Value.y.Equals(row));
-                    if (row == blockedRowIndex && column == blockedHeightIndex)
-                    {
-                        grid[row, column] = new Cell(vertex, true);
-                    }
-                    else
-                    {
-                        grid[row, column] = new Cell(vertex, false);
-                    }
-                }
-            }
-
             try
             {
-                var answer = SearchUtility<(double x, double y)>.AStarSearch(grid, graph.Vertices[0], null, SearchUtility<(double x, double y)>.CalculateManhattanDistance);
+                var answer = SearchUtility<(double x, double y)>.AStarSearch(graph, graph.Vertices[0], null, SearchUtility<(double x, double y)>.CalculateManhattanDistance);
                 Console.WriteLine("The A* search function is invalidly searching for a " +
                     "path where the end doesn't exist");
             }
@@ -294,7 +243,7 @@ namespace GraphLibraryTestProject
 
             try
             {
-                var answer = SearchUtility<(double x, double y)>.AStarSearch(grid, null, graph.Vertices[0], SearchUtility<(double x, double y)>.CalculateManhattanDistance);
+                var answer = SearchUtility<(double x, double y)>.AStarSearch(graph, null, graph.Vertices[0], SearchUtility<(double x, double y)>.CalculateManhattanDistance);
                 Console.WriteLine("The A* search function is invalidly searching for a " +
                     "path where the start doesn't exist");
             }

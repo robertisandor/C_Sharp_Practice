@@ -417,35 +417,37 @@ namespace GraphLib
                             // if it is a valid node AND it's the destination
                             if (rowIndexOfRecentValue == endRowIndex && endColumnIndex == columnIndexOfRecentValue)
                             {
-                                graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Parent = (rowIndexOfRecentValue, columnIndexOfRecentValue);
+                                cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Parent = (rowIndexOfRecentValue, columnIndexOfRecentValue);
                                 // trace path? - uses the parent attribute and a stack to go through
                                 // the path until it hits the "root"
-                                path = tracePath(graph, end);
+                                path = tracePath(cellGrid, end);
                                 foundDestination = true;
                                 break;
                             }
 
                             // otherwise if it's not part of the closed list and it's not blocked...
-                            else if (!closedList[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference] && !graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Blocked)
+                            else if (!closedList[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference] && !cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Blocked)
                             {
                                 // weights should be involved somewhere...
                                 // I probably need to replace the 1 with the weight
                                 // G should represent the weight
-                                newGValue = graph[(int)rowIndexOfRecentValue, (int)columnIndexOfRecentValue].G + 1;
+                                // perhaps I should search through the edges to find 
+                                // the weight between the last edge and the one I'm currently looking at?
+                                newGValue = cellGrid[(int)rowIndexOfRecentValue, (int)columnIndexOfRecentValue].G + 1;
                                 // maybe I should pair the x and y values in the cell?
-                                newHValue = heuristic((graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].X, graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Y), end.Value);
+                                newHValue = heuristic((cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].X, cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Y), end.Value);
                                 newFValue = newGValue + newHValue;
 
                                 // this is way too verbose... 
                                 // TODO: refactor so it's less verbose
-                                if (graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].F == double.MaxValue ||
-                                    newFValue < graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].F)
+                                if (cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].F == double.MaxValue ||
+                                    newFValue < cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].F)
                                 {
-                                    openList.Add(graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference]);
+                                    openList.Add(cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference]);
 
-                                    graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].F = newFValue;
-                                    graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].G = newGValue;
-                                    graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Parent = (rowIndexOfRecentValue, columnIndexOfRecentValue);
+                                    cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].F = newFValue;
+                                    cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].G = newGValue;
+                                    cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Parent = (rowIndexOfRecentValue, columnIndexOfRecentValue);
                                 }
                             }
                         }

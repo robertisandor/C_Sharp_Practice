@@ -11,9 +11,7 @@ namespace GraphLib
         public readonly double X;
         public readonly double Y;
         public readonly bool Blocked;
-        // vertexes don't have weights...
-        // do I use the Edge class?
-        public readonly double Weight;
+
         // TODO: change this to a Cell type
         public (double x, double y) Parent;
 
@@ -21,6 +19,16 @@ namespace GraphLib
         {
             X = node.Value.x;
             Y = node.Value.y;
+            Blocked = blocked;
+            F = double.MaxValue;
+            G = double.MaxValue;
+            Parent = (Double.MinValue, Double.MinValue);
+        }
+
+        public Cell((double x, double y) node, bool blocked)
+        {
+            X = node.x;
+            Y = node.y;
             Blocked = blocked;
             F = double.MaxValue;
             G = double.MaxValue;
@@ -282,16 +290,20 @@ namespace GraphLib
         // TODO: fix and finish this function
         // public static Queue<Vertex<(double, double)>> AStarSearch(Graph<(double, double)> graph, Vertex<(double, double)> start, Vertex<(double, double)> end, Func<(double, double), (double, double), double> heuristic)
         // do I want a queue of vertices or cells? does it make that much of a difference?
-        public static Queue<Cell> AStarSearch(Cell[,] graph, Vertex<(double x, double y)> start, Vertex<(double x, double y)> end, Func<(double x, double y), (double x, double y), double> heuristic)
+        // public static Queue<Cell> AStarSearch(Cell[,] graph, Vertex<(double x, double y)> start, Vertex<(double x, double y)> end, Func<(double x, double y), (double x, double y), double> heuristic)
+        public static Queue<Cell> AStarSearch(Graph<(double x, double y)> graph, Vertex<(double x, double y)> start, Vertex<(double x, double y)> end, Func<(double x, double y), (double x, double y), double> heuristic)
         {
             // would it be easier to add stuff to the vertex class
             // or create the cell class and pass an array/list to the A* search function?
-            if (start == null)
+            int indexOfStartPoint = graph.Vertices.FindIndex(vertex => vertex.Equals(start));
+            if (start == null || indexOfStartPoint == -1)
             {
                 throw new InvalidOperationException("Start point isn't valid.");
             }
 
-            if (end == null)
+            // should this be find or findindex?
+            int indexOfEndPoint = graph.Vertices.FindIndex(vertex => vertex.Equals(end));
+            if (end == null || indexOfEndPoint == -1)
             {
                 throw new InvalidOperationException("End point isn't valid.");
             }
@@ -301,47 +313,68 @@ namespace GraphLib
                 throw new InvalidOperationException("The start is also the destination.");
             }
 
-            int startRowIndex = -1;
-            int startColumnIndex = -1;
-            // TODO: replace size with something else
-            int size = 4;
-            for (int row = 0; row < size; row++)
+            int startRowIndex = (int)graph.Vertices[indexOfStartPoint].Value.y;
+            int startColumnIndex = (int)graph.Vertices[indexOfStartPoint].Value.x;
+
+            int endRowIndex = (int)graph.Vertices[indexOfEndPoint].Value.y;
+            int endColumnIndex = (int)graph.Vertices[indexOfEndPoint].Value.x;
+
+            graph.Vertices.Sort();
+
+            // user could give a graph that doesn't start at 0
+            // so I want to provide some flexibility 
+            // and keep the coordinate values the same
+            // finding these values helps to find the range
+            // so I know how big of a 2d array to create
+            int minXValue = int.MaxValue;
+            int minYValue = int.MaxValue;
+            int maxXValue = int.MinValue;
+            int maxYValue = int.MinValue;
+
+            for(int index = 0; index < graph.Vertices.Count; index++)
             {
-                for (int column = 0; column < size; column++)
+                if(graph.Vertices[index].Value.x < minXValue)
                 {
-                    if (graph[row, column].X == start.Value.x && graph[row, column].Y == start.Value.y)
-                    {
-                        startRowIndex = row;
-                        startColumnIndex = column;
-                    }
+                    minXValue = (int)graph.Vertices[index].Value.x;
+                }
+                else if(graph.Vertices[index].Value.x > maxXValue)
+                {
+                    maxXValue = (int)graph.Vertices[index].Value.x;
+                }
+
+                if (graph.Vertices[index].Value.y < minYValue)
+                {
+                    minYValue = (int)graph.Vertices[index].Value.y;
+                }
+                else if (graph.Vertices[index].Value.y > maxYValue)
+                {
+                    maxYValue = (int)graph.Vertices[index].Value.y;
                 }
             }
 
-            int endRowIndex = -1;
-            int endColumnIndex = -1;
-            for (int row = 0; row < size; row++)
+            // here I create the actual 2d array of cells
+            Cell[,] cellGrid = new Cell[maxYValue - minYValue, maxXValue - minXValue];
+            for(int row = 0; row < (maxYValue - minYValue); row++)
             {
-                // TODO: find a better variable than graph.Length; 
-                // this assumes that the height and width are the same
-                for (int column = 0; column < size; column++)
+                for(int column = 0; column < (maxXValue - minXValue); column++)
                 {
-                    if (graph[row, column].X == end.Value.x && graph[row, column].Y == end.Value.y)
-                    {
-                        endRowIndex = row;
-                        endColumnIndex = column;
-                    }
+                    // how would the user determine what's blocked or not?
+                    // right now I'm defaulting to false for testing purposes
+                    // but reading in user input seems tedious
+                    // should it be passed in (2d bool array) as an extra parameter?
+                    cellGrid[row, column] = new Cell((row + minYValue, column + minXValue), false);
                 }
             }
 
-            if (graph[startRowIndex, startColumnIndex].Blocked || graph[endRowIndex, endColumnIndex].Blocked)
+            if (cellGrid[startRowIndex, startColumnIndex].Blocked || cellGrid[endRowIndex, endColumnIndex].Blocked)
             {
                 throw new InvalidOperationException("The start or the end point is blocked.");
             }
 
-            bool[,] closedList = new bool[graph.Length, graph.Length];
-            for (int row = 0; row < size; row++)
+            bool[,] closedList = new bool[maxYValue - minYValue, maxXValue - minXValue];
+            for (int row = 0; row < (maxYValue - minYValue); row++)
             {
-                for (int column = 0; column < size; column++)
+                for (int column = 0; column < (maxXValue - minXValue); column++)
                 {
                     closedList[row, column] = false;
                 }
@@ -349,13 +382,13 @@ namespace GraphLib
 
             Queue<Cell> path = new Queue<Cell>();
 
-            graph[startRowIndex, startColumnIndex].F = 0;
-            graph[startRowIndex, startColumnIndex].G = 0;
+            cellGrid[startRowIndex, startColumnIndex].F = 0;
+            cellGrid[startRowIndex, startColumnIndex].G = 0;
             // the parent of the start node is the start node itself?
-            graph[startRowIndex, startColumnIndex].Parent = (graph[startRowIndex, startColumnIndex].X, graph[startRowIndex, startColumnIndex].Y);
+            cellGrid[startRowIndex, startColumnIndex].Parent = (cellGrid[startRowIndex, startColumnIndex].X, cellGrid[startRowIndex, startColumnIndex].Y);
 
             MinHeap<Cell> openList = new MinHeap<Cell>(new CellComparer());
-            openList.Add(graph[startRowIndex, startColumnIndex]);
+            openList.Add(cellGrid[startRowIndex, startColumnIndex]);
 
             bool foundDestination = false;
 
@@ -369,10 +402,6 @@ namespace GraphLib
                 double newGValue = -1;
                 double newFValue = -1;
                 double newHValue = -1;
-
-                // do something similar to the if/else if statement below for 8 cases 
-                // (each node around the original node)
-
 
                 for (int rowDifference = -1; rowDifference <= 1; rowDifference++)
                 {
@@ -401,6 +430,7 @@ namespace GraphLib
                             {
                                 // weights should be involved somewhere...
                                 // I probably need to replace the 1 with the weight
+                                // G should represent the weight
                                 newGValue = graph[(int)rowIndexOfRecentValue, (int)columnIndexOfRecentValue].G + 1;
                                 // maybe I should pair the x and y values in the cell?
                                 newHValue = heuristic((graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].X, graph[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Y), end.Value);

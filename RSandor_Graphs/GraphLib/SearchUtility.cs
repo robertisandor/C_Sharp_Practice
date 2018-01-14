@@ -10,26 +10,23 @@ namespace GraphLib
 
         public readonly double X;
         public readonly double Y;
-        public readonly bool Blocked;
 
         // TODO: change this to a Cell type
         public (double x, double y) Parent;
 
-        public Cell(Vertex<(double x, double y)> node, bool blocked)
+        public Cell(Vertex<(double x, double y)> node)
         {
             X = node.Value.x;
             Y = node.Value.y;
-            Blocked = blocked;
             F = double.MaxValue;
             G = double.MaxValue;
             Parent = (Double.MinValue, Double.MinValue);
         }
 
-        public Cell((double x, double y) node, bool blocked)
+        public Cell((double x, double y) node)
         {
             X = node.x;
             Y = node.y;
-            Blocked = blocked;
             F = double.MaxValue;
             G = double.MaxValue;
             Parent = (Double.MinValue, Double.MinValue);
@@ -277,7 +274,6 @@ namespace GraphLib
 
         #region A* Search method & heuristics
         // use a heap
-        // TODO: make a custom heap class
         // known, estimated, total
         // minheap based on total distance
         // estimated based off of heuristic
@@ -288,10 +284,9 @@ namespace GraphLib
         // pacman, LoL
         // undirected algorithm
         // TODO: fix and finish this function
-        // public static Queue<Vertex<(double, double)>> AStarSearch(Graph<(double, double)> graph, Vertex<(double, double)> start, Vertex<(double, double)> end, Func<(double, double), (double, double), double> heuristic)
         // do I want a queue of vertices or cells? does it make that much of a difference?
-        // public static Queue<Cell> AStarSearch(Cell[,] graph, Vertex<(double x, double y)> start, Vertex<(double x, double y)> end, Func<(double x, double y), (double x, double y), double> heuristic)
-        public static Queue<Cell> AStarSearch(Graph<(double x, double y)> graph, Vertex<(double x, double y)> start, Vertex<(double x, double y)> end, Func<(double x, double y), (double x, double y), double> heuristic)
+        public static Queue<Cell> AStarSearch(Graph<(double x, double y)> graph, Vertex<(double x, double y)> start, 
+            Vertex<(double x, double y)> end, Func<(double x, double y), (double x, double y), double> heuristic)
         {
             // would it be easier to add stuff to the vertex class
             // or create the cell class and pass an array/list to the A* search function?
@@ -301,7 +296,6 @@ namespace GraphLib
                 throw new InvalidOperationException("Start point isn't valid.");
             }
 
-            // should this be find or findindex?
             int indexOfEndPoint = graph.Vertices.FindIndex(vertex => vertex.Equals(end));
             if (end == null || indexOfEndPoint == -1)
             {
@@ -356,23 +350,10 @@ namespace GraphLib
             {
                 for(int column = 0; column <= (maxXValue - minXValue); column++)
                 {
-                    // how would the user determine what's blocked or not?
-                    // right now I'm defaulting to false for testing purposes
-                    // but reading in user input seems tedious
-                    // should it be passed in (2d bool array) as an extra parameter?
-                    // perhaps I can check the edges list to see if any edge exists between
-                    // that vertex and another vertex
-                    // if there are no edges connected to that particular vertex
-                    // then it's blocked
-                    cellGrid[row, column] = new Cell((row + minYValue, column + minXValue), false);
+                    cellGrid[row, column] = new Cell((row + minYValue, column + minXValue));
                 }
             }
-
-            if (cellGrid[startRowIndex, startColumnIndex].Blocked || cellGrid[endRowIndex, endColumnIndex].Blocked)
-            {
-                throw new InvalidOperationException("The start or the end point is blocked.");
-            }
-
+            
             bool[,] closedList = new bool[maxYValue - minYValue + 1, maxXValue - minXValue + 1];
             for (int row = 0; row < (maxYValue - minYValue); row++)
             {
@@ -386,13 +367,11 @@ namespace GraphLib
 
             cellGrid[startRowIndex, startColumnIndex].F = 0;
             cellGrid[startRowIndex, startColumnIndex].G = 0;
-            // the parent of the start node is the start node itself?
+            
             cellGrid[startRowIndex, startColumnIndex].Parent = (cellGrid[startRowIndex, startColumnIndex].X, cellGrid[startRowIndex, startColumnIndex].Y);
 
             MinHeap<Cell> openList = new MinHeap<Cell>(new CellComparer());
             openList.Add(cellGrid[startRowIndex, startColumnIndex]);
-
-            bool foundDestination = false;
 
             while (openList.Count > 0)
             {
@@ -423,19 +402,11 @@ namespace GraphLib
                                 // trace path? - uses the parent attribute and a stack to go through
                                 // the path until it hits the "root"
                                 path = tracePath(cellGrid, end);
-                                foundDestination = true;
-                                return path;
-                                // break;
+                                return path;                                
                             }
-
                             // otherwise if it's not part of the closed list and it's not blocked...
-                            else if (!closedList[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference] && !cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Blocked)
+                            else if (!closedList[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference])
                             {
-                                // weights should be involved somewhere...
-                                // I probably need to replace the 1 with the weight
-                                // G should represent the weight
-                                // perhaps I should search through the edges to find 
-                                // the weight between the last edge and the one I'm currently looking at?
                                 Edge<(double x, double y)> weightedEdge = graph.Edges.Find(
                                     edge => (int)edge.Start.Value.x == columnIndexOfRecentValue + minXValue && 
                                     (int)edge.Start.Value.y == rowIndexOfRecentValue + minYValue &&
@@ -449,8 +420,7 @@ namespace GraphLib
 
                                 // this is way too verbose... 
                                 // TODO: refactor so it's less verbose
-                                if (/*cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].F == double.MaxValue ||*/
-                                    newFValue < cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].F)
+                                if (newFValue < cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].F)
                                 {
                                     openList.Add(cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference]);
 
@@ -461,22 +431,7 @@ namespace GraphLib
                             }
                         }
                     }
-                    if(foundDestination)
-                    {
-                        break;
-                    }
                 }
-                // check if the node directly above the node that was popped off
-                // is a valid node
-                if (foundDestination)
-                {
-                    break;
-                }
-            }
-
-            if (!foundDestination)
-            {
-                return null;
             }
             // create a closed list - how large should it be?
             // create a 2d array to hold details of each cell in the map
@@ -489,16 +444,12 @@ namespace GraphLib
             // Ryan implements it so that it's one list, just the open one?
             // what does the closed list do?
 
-            // initialize the starting node with f, g, and h values of 0
-
-
-
             // create an open list that has the cell location and f cost associated with it
             // insert the starting node into the open list
             // would the open list be a heap?
 
             // check all 8 directions? <- necessary?
-            return path;
+            return null;
         }
 
         private static Queue<Cell> tracePath(Cell[,] graph, Vertex<(double x, double y)> destination)

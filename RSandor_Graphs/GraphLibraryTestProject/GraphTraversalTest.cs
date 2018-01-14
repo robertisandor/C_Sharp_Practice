@@ -127,8 +127,8 @@ namespace GraphLibraryTestProject
         public void AStarSearchTest()
         {
             int size = 4;
-            int blockedRowIndex = 1;
-            int blockedHeightIndex = 1;
+            // int blockedRowIndex = 1;
+            // int blockedHeightIndex = 1;
 
             Graph<(double x, double y)> graph = new Graph<(double x, double y)>(true, false);
             for(int y = 0; y < size; y++)
@@ -154,16 +154,30 @@ namespace GraphLibraryTestProject
             graph.Edges.AddRange(graph.CreateEdge((3, 2), (3, 3), 6.0f));
 
             var answer = SearchUtility<(double x, double y)>.AStarSearch(graph, graph.Vertices[0], graph.Vertices[graph.Vertices.Count - 1], SearchUtility<(double x, double y)>.CalculateManhattanDistance);
-            Assert.AreEqual((0, 0), answer.Dequeue());
-            // Assert.AreEqual(, answer.Dequeue());
+            var firstNodeOnPath = answer.Dequeue();
+            Assert.AreEqual(0, firstNodeOnPath.X);
+            Assert.AreEqual(0, firstNodeOnPath.Y);
+            var secondNodeOnPath = answer.Dequeue();
+            Assert.AreEqual(0, secondNodeOnPath.X);
+            Assert.AreEqual(1, secondNodeOnPath.Y);
+            var thirdNodeOnPath = answer.Dequeue();
+            Assert.AreEqual(0, thirdNodeOnPath.X);
+            Assert.AreEqual(2, thirdNodeOnPath.Y);
+            var fourthNodeOnPath = answer.Dequeue();
+            Assert.AreEqual(0, fourthNodeOnPath.X);
+            Assert.AreEqual(3, fourthNodeOnPath.Y);
+            var fifthNodeOnPath = answer.Dequeue();
+            Assert.AreEqual(1, fifthNodeOnPath.X);
+            Assert.AreEqual(3, fifthNodeOnPath.Y);
+            var sixthNodeOnPath = answer.Dequeue();
+            Assert.AreEqual(2, sixthNodeOnPath.X);
+            Assert.AreEqual(3, sixthNodeOnPath.Y);
         }
 
         [TestMethod]
         public void AStarSearchStartAndEndAreSame()
         {
             int size = 4;
-            int blockedRowIndex = 1;
-            int blockedHeightIndex = 1;
 
             Graph<(double x, double y)> graph = new Graph<(double x, double y)>(true, false);
             for (int y = 0; y < size; y++)
@@ -204,8 +218,8 @@ namespace GraphLibraryTestProject
         public void AStarSearchWithInvalidPoint()
         {
             int size = 4;
-            int blockedRowIndex = 1;
-            int blockedHeightIndex = 1;
+            // int blockedRowIndex = 1;
+            // int blockedHeightIndex = 1;
 
             Graph<(double x, double y)> graph = new Graph<(double x, double y)>(true, false);
             for (int y = 0; y < size; y++)

@@ -319,8 +319,6 @@ namespace GraphLib
             int endRowIndex = (int)graph.Vertices[indexOfEndPoint].Value.y;
             int endColumnIndex = (int)graph.Vertices[indexOfEndPoint].Value.x;
 
-            graph.Vertices.Sort();
-
             // user could give a graph that doesn't start at 0
             // so I want to provide some flexibility 
             // and keep the coordinate values the same
@@ -353,15 +351,19 @@ namespace GraphLib
             }
 
             // here I create the actual 2d array of cells
-            Cell[,] cellGrid = new Cell[maxYValue - minYValue, maxXValue - minXValue];
-            for(int row = 0; row < (maxYValue - minYValue); row++)
+            Cell[,] cellGrid = new Cell[maxYValue - minYValue + 1, maxXValue - minXValue + 1];
+            for(int row = 0; row <= (maxYValue - minYValue); row++)
             {
-                for(int column = 0; column < (maxXValue - minXValue); column++)
+                for(int column = 0; column <= (maxXValue - minXValue); column++)
                 {
                     // how would the user determine what's blocked or not?
                     // right now I'm defaulting to false for testing purposes
                     // but reading in user input seems tedious
                     // should it be passed in (2d bool array) as an extra parameter?
+                    // perhaps I can check the edges list to see if any edge exists between
+                    // that vertex and another vertex
+                    // if there are no edges connected to that particular vertex
+                    // then it's blocked
                     cellGrid[row, column] = new Cell((row + minYValue, column + minXValue), false);
                 }
             }
@@ -371,7 +373,7 @@ namespace GraphLib
                 throw new InvalidOperationException("The start or the end point is blocked.");
             }
 
-            bool[,] closedList = new bool[maxYValue - minYValue, maxXValue - minXValue];
+            bool[,] closedList = new bool[maxYValue - minYValue + 1, maxXValue - minXValue + 1];
             for (int row = 0; row < (maxYValue - minYValue); row++)
             {
                 for (int column = 0; column < (maxXValue - minXValue); column++)
@@ -412,7 +414,7 @@ namespace GraphLib
                             continue;
                         }
 
-                        if (rowIndexOfRecentValue + rowDifference < (maxYValue - minYValue) && rowIndexOfRecentValue + rowDifference >= 0 && columnIndexOfRecentValue + columnDifference < (maxXValue - minXValue) && columnIndexOfRecentValue + columnDifference >= 0)
+                        if (rowIndexOfRecentValue + rowDifference <= (maxYValue - minYValue) && rowIndexOfRecentValue + rowDifference >= 0 && columnIndexOfRecentValue + columnDifference <= (maxXValue - minXValue) && columnIndexOfRecentValue + columnDifference >= 0)
                         {
                             // if it is a valid node AND it's the destination
                             if (rowIndexOfRecentValue == endRowIndex && endColumnIndex == columnIndexOfRecentValue)
@@ -422,7 +424,8 @@ namespace GraphLib
                                 // the path until it hits the "root"
                                 path = tracePath(cellGrid, end);
                                 foundDestination = true;
-                                break;
+                                return path;
+                                // break;
                             }
 
                             // otherwise if it's not part of the closed list and it's not blocked...
@@ -433,14 +436,20 @@ namespace GraphLib
                                 // G should represent the weight
                                 // perhaps I should search through the edges to find 
                                 // the weight between the last edge and the one I'm currently looking at?
-                                newGValue = cellGrid[(int)rowIndexOfRecentValue, (int)columnIndexOfRecentValue].G + 1;
+                                Edge<(double x, double y)> weightedEdge = graph.Edges.Find(
+                                    edge => (int)edge.Start.Value.x == columnIndexOfRecentValue + minXValue && 
+                                    (int)edge.Start.Value.y == rowIndexOfRecentValue + minYValue &&
+                                    (int)edge.End.Value.x == (columnIndexOfRecentValue + columnDifference + minXValue) &&
+                                    (int)edge.End.Value.y == (rowIndexOfRecentValue + rowDifference + minYValue));
+                                newGValue = weightedEdge != null ? weightedEdge.Weight : double.MaxValue;
+                                // newGValue = cellGrid[(int)rowIndexOfRecentValue, (int)columnIndexOfRecentValue].G + 1;
                                 // maybe I should pair the x and y values in the cell?
                                 newHValue = heuristic((cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].X, cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Y), end.Value);
                                 newFValue = newGValue + newHValue;
 
                                 // this is way too verbose... 
                                 // TODO: refactor so it's less verbose
-                                if (cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].F == double.MaxValue ||
+                                if (/*cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].F == double.MaxValue ||*/
                                     newFValue < cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].F)
                                 {
                                     openList.Add(cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference]);
@@ -459,7 +468,10 @@ namespace GraphLib
                 }
                 // check if the node directly above the node that was popped off
                 // is a valid node
-
+                if (foundDestination)
+                {
+                    break;
+                }
             }
 
             if (!foundDestination)
@@ -498,8 +510,8 @@ namespace GraphLib
             while (!(graph[rowIndex, columnIndex].Parent.Equals((graph[rowIndex, columnIndex].X, graph[rowIndex, columnIndex].Y))))
             {
                 reversedPath.Push(graph[rowIndex, columnIndex]);
-                int tempRowIndex = (int)graph[rowIndex, columnIndex].Parent.y;
-                int tempColumnIndex = (int)graph[rowIndex, columnIndex].Parent.x;
+                int tempRowIndex = (int)graph[rowIndex, columnIndex].Parent.x;
+                int tempColumnIndex = (int)graph[rowIndex, columnIndex].Parent.y;
                 rowIndex = tempRowIndex;
                 columnIndex = tempColumnIndex;
             }
@@ -511,35 +523,11 @@ namespace GraphLib
             }
             return path;
         }
-        /*
-        public static Queue<Vertex<T>> AStarSearch(Graph<T> graph, Func<(T,T), (T,T), T> heuristic)
-        {
-            return null;
-        }
-        */
 
         // TODO: fix and finish this function
         public static double CalculateManhattanDistance((double x, double y) start, (double x, double y) end)
         {
             return Math.Abs(start.x - end.x) + Math.Abs(start.y - end.y);
-        }
-
-        // created alternative version using value tuples and dynamic types
-        // TODO: check how "good" this is - unit tests?
-        public static (T, bool) CalculateManhattanDistance((T x, T y) start, (T x, T y) end)
-        {
-            dynamic firstNumeric = (dynamic)start;
-            dynamic secondNumeric = (dynamic)end;
-            dynamic returnValue;
-            try
-            {
-                returnValue = (firstNumeric.x - secondNumeric.x) + (firstNumeric.y - secondNumeric.y);
-                return (returnValue, true);
-            }
-            catch
-            {
-                return (default(T), false);
-            }
         }
 
         // TODO: fix and finish this function

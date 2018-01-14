@@ -288,6 +288,18 @@ namespace GraphLib
         public static Queue<Cell> AStarSearch(Graph<(double x, double y)> graph, Vertex<(double x, double y)> start, 
             Vertex<(double x, double y)> end, Func<(double x, double y), (double x, double y), double> heuristic)
         {
+            // F is needed 
+            // because the minheap is sorted using that value
+
+            // Ryan implements it so that it's one list, just the open one?
+            // what does the closed list do?
+
+            // create an open list that has the cell location and f cost associated with it
+            // insert the starting node into the open list
+            // would the open list be a heap?
+
+            // check all 8 directions? <- necessary?
+
             // would it be easier to add stuff to the vertex class
             // or create the cell class and pass an array/list to the A* search function?
             int indexOfStartPoint = graph.Vertices.FindIndex(vertex => vertex.Equals(start));
@@ -412,9 +424,8 @@ namespace GraphLib
                                     (int)edge.Start.Value.y == rowIndexOfRecentValue + minYValue &&
                                     (int)edge.End.Value.x == (columnIndexOfRecentValue + columnDifference + minXValue) &&
                                     (int)edge.End.Value.y == (rowIndexOfRecentValue + rowDifference + minYValue));
+
                                 newGValue = weightedEdge != null ? weightedEdge.Weight : double.MaxValue;
-                                // newGValue = cellGrid[(int)rowIndexOfRecentValue, (int)columnIndexOfRecentValue].G + 1;
-                                // maybe I should pair the x and y values in the cell?
                                 newHValue = heuristic((cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].X, cellGrid[(int)rowIndexOfRecentValue + rowDifference, (int)columnIndexOfRecentValue + columnDifference].Y), end.Value);
                                 newFValue = newGValue + newHValue;
 
@@ -433,22 +444,7 @@ namespace GraphLib
                     }
                 }
             }
-            // create a closed list - how large should it be?
-            // create a 2d array to hold details of each cell in the map
-            // do I need a separate class for that?
-            // set the h (heuristic), g (cost to get to a given node/goal), 
-            // and f (sum of g and h) to the max value
-            // calculate H on-the-fly, F is needed 
-            // because the minheap is sorted using that value
-
-            // Ryan implements it so that it's one list, just the open one?
-            // what does the closed list do?
-
-            // create an open list that has the cell location and f cost associated with it
-            // insert the starting node into the open list
-            // would the open list be a heap?
-
-            // check all 8 directions? <- necessary?
+            
             return null;
         }
 
@@ -475,13 +471,11 @@ namespace GraphLib
             return path;
         }
 
-        // TODO: fix and finish this function
         public static double CalculateManhattanDistance((double x, double y) start, (double x, double y) end)
         {
             return Math.Abs(start.x - end.x) + Math.Abs(start.y - end.y);
         }
 
-        // TODO: fix and finish this function
         public static double CalculateEuclideanDistance((double x, double y) start, (double x, double y) end)
         {
             return Math.Sqrt(Math.Pow((double)(start.x - end.x), 2.0) + Math.Pow((double)(start.y - end.y), 2.0));

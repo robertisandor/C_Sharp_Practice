@@ -127,8 +127,6 @@ namespace GraphLibraryTestProject
         public void AStarSearchTest()
         {
             int size = 4;
-            // int blockedRowIndex = 1;
-            // int blockedHeightIndex = 1;
 
             Graph<(double x, double y)> graph = new Graph<(double x, double y)>(true, false);
             for(int y = 0; y < size; y++)
@@ -172,6 +170,14 @@ namespace GraphLibraryTestProject
             var sixthNodeOnPath = answer.Dequeue();
             Assert.AreEqual(2, sixthNodeOnPath.X);
             Assert.AreEqual(3, sixthNodeOnPath.Y);
+
+            var answerFromEuclideanMethod = SearchUtility<(double x, double y)>.AStarSearch(graph, graph.Vertices[0], graph.Vertices[graph.Vertices.Count - 1], SearchUtility<(double x, double y)>.CalculateEuclideanDistance);
+            var firstNodeEuclidean = answer.Dequeue();
+            Assert.AreEqual(0, firstNodeEuclidean.X);
+            Assert.AreEqual(0, firstNodeEuclidean.Y);
+            var secondNodeEuclidean = answer.Dequeue();
+            Assert.AreEqual(0, secondNodeEuclidean.X);
+            Assert.AreEqual(1, secondNodeEuclidean.Y);
         }
 
         [TestMethod]
@@ -218,8 +224,6 @@ namespace GraphLibraryTestProject
         public void AStarSearchWithInvalidPoint()
         {
             int size = 4;
-            // int blockedRowIndex = 1;
-            // int blockedHeightIndex = 1;
 
             Graph<(double x, double y)> graph = new Graph<(double x, double y)>(true, false);
             for (int y = 0; y < size; y++)
